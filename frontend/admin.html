@@ -1,0 +1,672 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard - Artistry Haven</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700;800&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --cream: #faf8f3;
+            --soft-pink: #f5e6e0;
+            --muted-pink: #e8d0c8;
+            --soft-gray: #9a9a9a;
+            --light-beige: #ede4d3;
+            --pastel-blue: #d4e6f1;
+            --dark-text: #3d3d3d;
+            --accent: #c97c7c;
+            --success: #5cb85c;
+            --danger: #d9534f;
+            --warning: #f0ad4e;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            color: var(--dark-text);
+            background-color: var(--cream);
+            line-height: 1.6;
+        }
+
+        /* HEADER */
+        .admin-header {
+            background: linear-gradient(135deg, var(--accent) 0%, #b0686b 100%);
+            color: white;
+            padding: 1.5rem 2rem;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .admin-header h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.8rem;
+        }
+
+        .admin-nav {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .admin-nav a {
+            color: white;
+            text-decoration: none;
+            padding: 0.5rem 1rem;
+            border-radius: 5px;
+            transition: background 0.3s;
+        }
+
+        .admin-nav a:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        /* STATS DASHBOARD */
+        .stats-container {
+            max-width: 1400px;
+            margin: 2rem auto;
+            padding: 0 2rem;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .stat-card {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .stat-icon {
+            font-size: 2.5rem;
+            width: 60px;
+            height: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 10px;
+            background: var(--light-beige);
+        }
+
+        .stat-info h3 {
+            font-size: 0.9rem;
+            color: var(--soft-gray);
+            font-weight: 500;
+        }
+
+        .stat-info p {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--dark-text);
+        }
+
+        /* MAIN CONTENT */
+        .admin-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+        }
+
+        .section-header h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2rem;
+            color: var(--dark-text);
+        }
+
+        .btn {
+            padding: 0.8rem 1.5rem;
+            border: none;
+            border-radius: 5px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-size: 0.95rem;
+        }
+
+        .btn-primary {
+            background: var(--accent);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: #b0686b;
+            transform: translateY(-2px);
+        }
+
+        .btn-success {
+            background: var(--success);
+            color: white;
+        }
+
+        .btn-danger {
+            background: var(--danger);
+            color: white;
+            padding: 0.5rem 1rem;
+            font-size: 0.85rem;
+        }
+
+        .btn-warning {
+            background: var(--warning);
+            color: white;
+            padding: 0.5rem 1rem;
+            font-size: 0.85rem;
+        }
+
+        /* MODAL */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.6);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal.active {
+            display: flex;
+        }
+
+        .modal-content {
+            background: white;
+            padding: 2rem;
+            border-radius: 10px;
+            max-width: 600px;
+            width: 90%;
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .modal-header h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.8rem;
+            color: var(--dark-text);
+        }
+
+        .close-btn {
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--soft-gray);
+            background: none;
+            border: none;
+        }
+
+        .close-btn:hover {
+            color: var(--dark-text);
+        }
+
+        /* FORM */
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+            color: var(--dark-text);
+        }
+
+        .form-group input,
+        .form-group textarea,
+        .form-group select {
+            width: 100%;
+            padding: 0.8rem;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-family: 'Poppins', sans-serif;
+            font-size: 0.95rem;
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            min-height: 100px;
+        }
+
+        .form-actions {
+            display: flex;
+            gap: 1rem;
+            justify-content: flex-end;
+            margin-top: 2rem;
+        }
+
+        /* PRODUCTS TABLE */
+        .products-table {
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        thead {
+            background: var(--light-beige);
+        }
+
+        th {
+            padding: 1rem;
+            text-align: left;
+            font-weight: 600;
+            color: var(--dark-text);
+        }
+
+        td {
+            padding: 1rem;
+            border-bottom: 1px solid #f0f0f0;
+        }
+
+        tr:hover {
+            background: #fafafa;
+        }
+
+        .product-image-small {
+            font-size: 2rem;
+        }
+
+        .actions-cell {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        /* CATEGORIES SECTION */
+        .categories-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        .category-item {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .category-item h4 {
+            font-size: 1.2rem;
+            color: var(--dark-text);
+        }
+
+        .category-item p {
+            color: var(--soft-gray);
+            font-size: 0.9rem;
+            margin-top: 0.3rem;
+        }
+
+        /* RESPONSIVE */
+        @media (max-width: 768px) {
+            .admin-header {
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            .stats-container {
+                grid-template-columns: 1fr;
+            }
+
+            .products-table {
+                overflow-x: auto;
+            }
+
+            table {
+                min-width: 800px;
+            }
+
+            .modal-content {
+                width: 95%;
+                padding: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ADMIN HEADER -->
+    <header class="admin-header">
+        <h1>🎨 Artistry Haven Admin</h1>
+        <nav class="admin-nav">
+            <a href="#dashboard">Dashboard</a>
+            <a href="#products">Products</a>
+            <a href="#orders">Orders</a>
+            <a href="s.html">View Store</a>
+        </nav>
+    </header>
+
+    <!-- STATS DASHBOARD -->
+    <div class="stats-container">
+        <div class="stat-card">
+            <div class="stat-icon">📦</div>
+            <div class="stat-info">
+                <h3>Total Products</h3>
+                <p id="totalProducts">6</p>
+            </div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-icon">🛒</div>
+            <div class="stat-info">
+                <h3>Total Orders</h3>
+                <p>24</p>
+            </div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-icon">💰</div>
+            <div class="stat-info">
+                <h3>Revenue</h3>
+                <p>₹42,450</p>
+            </div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-icon">📈</div>
+            <div class="stat-info">
+                <h3>This Month</h3>
+                <p>₹15,230</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- MAIN CONTENT -->
+    <div class="admin-content">
+        <!-- PRODUCTS SECTION -->
+        <div class="section-header">
+            <h2>Product Management</h2>
+            <button class="btn btn-primary" onclick="openAddModal()">+ Add New Product</button>
+        </div>
+
+        <div class="products-table">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Icon</th>
+                        <th>Product Name</th>
+                        <th>Price</th>
+                        <th>Category</th>
+                        <th>Status</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody id="productsTableBody">
+                    <!-- Products will be dynamically inserted here -->
+                </tbody>
+            </table>
+        </div>
+
+        <!-- CATEGORIES SECTION -->
+        <div style="margin-top: 4rem;">
+            <div class="section-header">
+                <h2>Categories</h2>
+                <button class="btn btn-primary" onclick="openCategoryModal()">+ Add Category</button>
+            </div>
+            <div class="categories-grid" id="categoriesGrid">
+                <!-- Categories will be dynamically inserted here -->
+            </div>
+        </div>
+    </div>
+
+    <!-- ADD/EDIT PRODUCT MODAL -->
+    <div class="modal" id="productModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 id="modalTitle">Add New Product</h3>
+                <button class="close-btn" onclick="closeModal()">&times;</button>
+            </div>
+            <form id="productForm">
+                <div class="form-group">
+                    <label>Product Name *</label>
+                    <input type="text" id="productName" required>
+                </div>
+                <div class="form-group">
+                    <label>Price (₹) *</label>
+                    <input type="number" id="productPrice" required>
+                </div>
+                <div class="form-group">
+                    <label>Icon/Emoji *</label>
+                    <input type="text" id="productIcon" placeholder="e.g., 🌸" maxlength="2" required>
+                </div>
+                <div class="form-group">
+                    <label>Category *</label>
+                    <select id="productCategory" required>
+                        <option value="">Select Category</option>
+                        <option value="Glass Paintings">Glass Paintings</option>
+                        <option value="Acrylic Paintings">Acrylic Paintings</option>
+                        <option value="Mixed Media">Mixed Media Art</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Description *</label>
+                    <textarea id="productDescription" required></textarea>
+                </div>
+                <div class="form-group">
+                    <label>Status *</label>
+                    <select id="productStatus" required>
+                        <option value="In Stock">In Stock</option>
+                        <option value="Low Stock">Low Stock</option>
+                        <option value="Out of Stock">Out of Stock</option>
+                    </select>
+                </div>
+                <div class="form-actions">
+                    <button type="button" class="btn" onclick="closeModal()">Cancel</button>
+                    <button type="submit" class="btn btn-success">Save Product</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- CATEGORY MODAL -->
+    <div class="modal" id="categoryModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Add New Category</h3>
+                <button class="close-btn" onclick="closeCategoryModal()">&times;</button>
+            </div>
+            <form id="categoryForm">
+                <div class="form-group">
+                    <label>Category Name *</label>
+                    <input type="text" id="categoryName" required>
+                </div>
+                <div class="form-group">
+                    <label>Icon/Emoji *</label>
+                    <input type="text" id="categoryIcon" placeholder="e.g., 🖼️" maxlength="2" required>
+                </div>
+                <div class="form-group">
+                    <label>Description *</label>
+                    <textarea id="categoryDescription" required></textarea>
+                </div>
+                <div class="form-actions">
+                    <button type="button" class="btn" onclick="closeCategoryModal()">Cancel</button>
+                    <button type="submit" class="btn btn-success">Add Category</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        // Sample initial products data
+        let products = [
+            { id: 1, name: 'Golden Glass Lotus', price: 1499, icon: '🌸', category: 'Glass Paintings', description: 'Elegant glass painting featuring a golden lotus design with intricate detailing.', status: 'In Stock' },
+            { id: 2, name: 'Acrylic Sunset Waves', price: 2199, icon: '🌊', category: 'Acrylic Paintings', description: 'Vibrant acrylic painting capturing the serene beauty of sunset over waves.', status: 'In Stock' },
+            { id: 3, name: 'Royal Peacock on Canvas', price: 1899, icon: '🦚', category: 'Mixed Media', description: 'Majestic peacock artwork with rich colors and elaborate feather details.', status: 'Low Stock' },
+            { id: 4, name: 'Minimalist Abstract Flow', price: 1299, icon: '✨', category: 'Acrylic Paintings', description: 'Contemporary abstract design with flowing shapes and subtle color transitions.', status: 'In Stock' },
+            { id: 5, name: 'Crimson Bloom Glass', price: 1799, icon: '🌹', category: 'Glass Paintings', description: 'Deep crimson glass painting featuring blooming flowers with metallic accents.', status: 'In Stock' },
+            { id: 6, name: 'Blue Mirage Acrylic', price: 1999, icon: '🌌', category: 'Acrylic Paintings', description: 'Dreamy acrylic artwork with mesmerizing blue tones and ethereal atmosphere.', status: 'In Stock' }
+        ];
+
+        let categories = [
+            { id: 1, name: 'Glass Paintings', icon: '🖼️', description: 'Transparent elegance with stunning glass art pieces that catch light beautifully.' },
+            { id: 2, name: 'Acrylic Paintings', icon: '🎨', description: 'Vibrant and versatile acrylic artworks with rich colors and dynamic compositions.' },
+            { id: 3, name: 'Mixed Media Art', icon: '🌟', description: 'Creative combinations of various materials and techniques for unique artistic expressions.' }
+        ];
+
+        let editingProductId = null;
+
+        // Render products table
+        function renderProducts() {
+            const tbody = document.getElementById('productsTableBody');
+            tbody.innerHTML = products.map(product => `
+                <tr>
+                    <td><span class="product-image-small">${product.icon}</span></td>
+                    <td><strong>${product.name}</strong></td>
+                    <td>₹${product.price}</td>
+                    <td>${product.category}</td>
+                    <td><span style="color: ${product.status === 'In Stock' ? 'var(--success)' : product.status === 'Low Stock' ? 'var(--warning)' : 'var(--danger)'}; font-weight: 600;">${product.status}</span></td>
+                    <td>
+                        <div class="actions-cell">
+                            <button class="btn btn-warning" onclick="editProduct(${product.id})">Edit</button>
+                            <button class="btn btn-danger" onclick="deleteProduct(${product.id})">Delete</button>
+                        </div>
+                    </td>
+                </tr>
+            `).join('');
+            
+            document.getElementById('totalProducts').textContent = products.length;
+        }
+
+        // Render categories
+        function renderCategories() {
+            const grid = document.getElementById('categoriesGrid');
+            grid.innerHTML = categories.map(cat => `
+                <div class="category-item">
+                    <div>
+                        <h4><span style="font-size: 1.5rem; margin-right: 0.5rem;">${cat.icon}</span>${cat.name}</h4>
+                        <p>${cat.description}</p>
+                    </div>
+                    <button class="btn btn-danger" onclick="deleteCategory(${cat.id})">Delete</button>
+                </div>
+            `).join('');
+        }
+
+        // Open add modal
+        function openAddModal() {
+            editingProductId = null;
+            document.getElementById('modalTitle').textContent = 'Add New Product';
+            document.getElementById('productForm').reset();
+            document.getElementById('productModal').classList.add('active');
+        }
+
+        // Edit product
+        function editProduct(id) {
+            editingProductId = id;
+            const product = products.find(p => p.id === id);
+            
+            document.getElementById('modalTitle').textContent = 'Edit Product';
+            document.getElementById('productName').value = product.name;
+            document.getElementById('productPrice').value = product.price;
+            document.getElementById('productIcon').value = product.icon;
+            document.getElementById('productCategory').value = product.category;
+            document.getElementById('productDescription').value = product.description;
+            document.getElementById('productStatus').value = product.status;
+            
+            document.getElementById('productModal').classList.add('active');
+        }
+
+        // Delete product
+        function deleteProduct(id) {
+            if (confirm('Are you sure you want to delete this product?')) {
+                products = products.filter(p => p.id !== id);
+                renderProducts();
+            }
+        }
+
+        // Close modal
+        function closeModal() {
+            document.getElementById('productModal').classList.remove('active');
+            editingProductId = null;
+        }
+
+        // Handle form submission
+        document.getElementById('productForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const productData = {
+                name: document.getElementById('productName').value,
+                price: parseInt(document.getElementById('productPrice').value),
+                icon: document.getElementById('productIcon').value,
+                category: document.getElementById('productCategory').value,
+                description: document.getElementById('productDescription').value,
+                status: document.getElementById('productStatus').value
+            };
+
+            if (editingProductId) {
+                const index = products.findIndex(p => p.id === editingProductId);
+                products[index] = { ...products[index], ...productData };
+            } else {
+                const newId = products.length > 0 ? Math.max(...products.map(p => p.id)) + 1 : 1;
+                products.push({ id: newId, ...productData });
+            }
+
+            renderProducts();
+            closeModal();
+        });
+
+        // Category functions
+        function openCategoryModal() {
+            document.getElementById('categoryModal').classList.add('active');
+        }
+
+        function closeCategoryModal() {
+            document.getElementById('categoryModal').classList.remove('active');
+            document.getElementById('categoryForm').reset();
+        }
+
+        function deleteCategory(id) {
+            if (confirm('Are you sure you want to delete this category?')) {
+                categories = categories.filter(c => c.id !== id);
+                renderCategories();
+            }
+        }
+
+        document.getElementById('categoryForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const newId = categories.length > 0 ? Math.max(...categories.map(c => c.id)) + 1 : 1;
+            categories.push({
+                id: newId,
+                name: document.getElementById('categoryName').value,
+                icon: document.getElementById('categoryIcon').value,
+                description: document.getElementById('categoryDescription').value
+            });
+
+            renderCategories();
+            closeCategoryModal();
+        });
+
+        // Initialize
+        renderProducts();
+        renderCategories();
+    </script>
+
+</body>
+</html>
