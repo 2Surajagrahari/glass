@@ -1,8 +1,10 @@
+
  /* ===== RESET & VARIABLES ===== */
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
+             font-family: 'Montserrat', sans-serif !important;
         }
 
         :root {
@@ -311,6 +313,20 @@
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
         }
 
+        /* Add this to your style.css */
+
+.product-card-link {
+    text-decoration: none; /* Removes the underline from the link */
+    color: inherit;       /* Makes the text color normal */
+    display: block;       /* Important for making the whole area clickable */
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* Apply hover effect to the link, not the card div */
+.product-card-link:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+}
         .product-image {
             width: 100%;
             height: 250px;
