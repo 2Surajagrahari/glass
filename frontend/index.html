@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Artistry Haven - Exquisite Glass Art</title>
+    <title>Crafting Sign - Custom Event & Wedding Decor</title>
 
     <script src="https://cdn.tailwindcss.com"></script>
 
@@ -65,7 +65,7 @@
         <header class="sticky top-0 z-50 bg-white/90 backdrop-blur-lg shadow-sm border-b border-gray-100">
             <nav class="container mx-auto flex items-center justify-between p-4">
                 <a href="#" @click.prevent="navigate('home')"
-                    class="font-serif text-3xl font-bold text-brand-primary">Artistry Haven</a>
+                    class="font-serif text-3xl font-bold text-brand-primary">Crafting Sign</a>
 
                 <ul class="hidden md:flex items-center gap-8 text-sm font-medium tracking-wide">
                     <li><a href="#" @click.prevent="navigate('home')"
@@ -82,15 +82,23 @@
                         </button>
                         <div x-show="open" x-transition
                             class="absolute top-full left-1/2 -translate-x-1/2 mt-2 w-56 bg-white rounded-md shadow-lg p-2 z-50 border border-gray-100">
-                            <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-50 rounded-md">Glass
-                                Paintings</a>
                             <a href="#"
-                                class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-50 rounded-md">Acrylic
-                                Art</a>
-                            <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-50 rounded-md">Mixed
-                                Media</a>
-                            <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-50 rounded-md">Custom
-                                Orders</a>
+                                class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-50 rounded-md">Welcome
+                                Signs</a>
+                            <a href="#"
+                                class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-50 rounded-md">Seating
+                                Charts</a>
+                            <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-50 rounded-md">Baby
+                                Shower</a>
+                            <a href="#"
+                                class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-50 rounded-md">Birthday
+                                Signs</a>
+                            <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-50 rounded-md">Table
+                                Numbers</a>
+                            <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-50 rounded-md">Menu
+                                Cards</a>
+                            <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-50 rounded-md">Place
+                                Cards</a>
                         </div>
                     </li>
                     <li><a href="#" @click.prevent="scrollTo('contact')"
@@ -113,8 +121,8 @@
                             <button @click="dropdownOpen = !dropdownOpen" class="flex items-center gap-2">
                                 <span class="hidden md:inline text-sm"
                                     x-text="`Hi, ${$store.auth.user.name.split(' ')[0]}`"></span>
-                                <img src="https://source.unsplash.com/40x40/?portrait,person" alt="avatar"
-                                    class="h-8 w-8 rounded-full border-2 border-brand-primary/50">
+                                <img src="https://picsum.photos/40/40?random=200" alt="avatar"
+                                    class="h-8 w-8 rounded-full border-2 border-brand-primary/50 object-cover">
                             </button>
                             <div x-show="dropdownOpen" @click.away="dropdownOpen = false"
                                 class="absolute right-0 mt-3 w-48 bg-white rounded-md shadow-lg py-1 z-50 border border-gray-100">
@@ -132,6 +140,7 @@
                     </button>
                 </div>
             </nav>
+
             <div x-show="mobileMenuOpen" x-transition class="md:hidden bg-white/95 border-t border-gray-100">
                 <ul class="flex flex-col items-center gap-4 py-4 divide-y divide-gray-100 w-full">
                     <li><a href="#" @click.prevent="navigate('home'); mobileMenuOpen=false"
@@ -144,13 +153,15 @@
                         <span class="font-semibold text-gray-500 text-xs tracking-widest uppercase">Categories</span>
                         <div class="mt-2 space-y-2">
                             <a href="#" @click.prevent="mobileMenuOpen=false"
-                                class="block text-gray-700 hover:text-brand-primary">Glass Paintings</a>
+                                class="block text-gray-700 hover:text-brand-primary">Welcome Signs</a>
                             <a href="#" @click.prevent="mobileMenuOpen=false"
-                                class="block text-gray-700 hover:text-brand-primary">Acrylic Art</a>
+                                class="block text-gray-700 hover:text-brand-primary">Seating Charts</a>
                             <a href="#" @click.prevent="mobileMenuOpen=false"
-                                class="block text-gray-700 hover:text-brand-primary">Mixed Media</a>
+                                class="block text-gray-700 hover:text-brand-primary">Baby Shower</a>
                             <a href="#" @click.prevent="mobileMenuOpen=false"
-                                class="block text-gray-700 hover:text-brand-primary">Custom Orders</a>
+                                class="block text-gray-700 hover:text-brand-primary">Birthday Signs</a>
+                            <a href="#" @click.prevent="mobileMenuOpen=false"
+                                class="block text-gray-700 hover:text-brand-primary">Table Numbers</a>
                         </div>
                     </li>
                     <li><a href="#" @click.prevent="scrollTo('contact'); mobileMenuOpen=false"
@@ -195,29 +206,29 @@
                         <div class="flex items-center gap-4" data-aos="fade-up">
                             <i class="fa-solid fa-truck h-10 w-10 text-brand-primary"></i>
                             <div>
-                                <h3 class="font-semibold text-lg">Fast Delivery</h3>
+                                <h3 class="font-semibold text-lg">Worldwide Shipping</h3>
                                 <p class="text-sm text-gray-600">Secure shipping to your door</p>
                             </div>
                         </div>
                         <div class="flex items-center gap-4" data-aos="fade-up" data-aos-delay="100">
                             <i class="fa-solid fa-gem h-10 w-10 text-brand-primary"></i>
                             <div>
-                                <h3 class="font-semibold text-lg">100% Handmade</h3>
-                                <p class="text-sm text-gray-600">Crafted by passionate artists</p>
+                                <h3 class="font-semibold text-lg">Premium Materials</h3>
+                                <p class="text-sm text-gray-600">High-quality acrylic & inks</p>
                             </div>
                         </div>
                         <div class="flex items-center gap-4" data-aos="fade-up" data-aos-delay="200">
                             <i class="fa-solid fa-leaf h-10 w-10 text-brand-primary"></i>
                             <div>
-                                <h3 class="font-semibold text-lg">Quality Materials</h3>
-                                <p class="text-sm text-gray-600">Durable and vibrant artistry</p>
+                                <h3 class="font-semibold text-lg">Handmade with Love</h3>
+                                <p class="text-sm text-gray-600">Crafted with precision</p>
                             </div>
                         </div>
                         <div class="flex items-center gap-4" data-aos="fade-up" data-aos-delay="300">
                             <i class="fa-solid fa-message h-10 w-10 text-brand-primary"></i>
                             <div>
-                                <h3 class="font-semibold text-lg">Custom Orders</h3>
-                                <p class="text-sm text-gray-600">Personalized art for you</p>
+                                <h3 class="font-semibold text-lg">Custom Designs</h3>
+                                <p class="text-sm text-gray-600">Personalized for your event</p>
                             </div>
                         </div>
                     </div>
@@ -254,22 +265,26 @@
                 <section id="about" class="py-20 md:py-28 bg-white">
                     <div class="container mx-auto px-4 grid md:grid-cols-2 gap-16 items-center">
                         <div data-aos="fade-right">
-                            <h2 class="font-serif text-4xl md:text-5xl font-bold mb-6 leading-tight">Where Glass Meets
-                                Soul</h2>
-                            <p class="mb-6 text-gray-600 leading-relaxed">Artistry Haven is more than just a gallery;
-                                it's a celebration of light, color, and intricate craftsmanship. We bring you the finest
-                                handmade glass art, meticulously created with love, patience, and boundless imagination.
-                            </p>
-                            <p class="text-gray-600 leading-relaxed mb-8">Our dedicated artists pour their souls into
-                                each unique piece, transforming simple glass into breathtaking works that capture
-                                emotion and elevate spaces. Discover art that speaks to your heart.</p>
+                            <h2 class="font-serif text-4xl md:text-5xl font-bold mb-6 leading-tight">Where Creativity
+                                Meets Celebration</h2>
+                            <p class="mb-6 text-gray-600 leading-relaxed">Welcome to Crafting Sign! We specialize in
+                                designing and crafting custom acrylic welcome signs, seating charts, wedding boards, and
+                                event décor that make your moments truly memorable.</p>
+                            <p class="text-gray-600 leading-relaxed mb-4">Each product is handmade with love and
+                                precision, using high-quality materials to ensure a premium look that lasts.
+                                Whether you’re hosting a wedding, birthday, baby shower, or corporate event — our signs
+                                add a personal and elegant touch to every occasion.</p>
+                            <p class="text-gray-600 leading-relaxed mb-8">At Crafting Sign, we believe that every event
+                                deserves something beautiful and meaningful. That’s why we offer worldwide shipping,
+                                custom designs, and friendly customer support to help you create exactly what you
+                                imagine.</p>
                             <a href="#" @click.prevent="scrollTo('contact')"
-                                class="inline-block bg-brand-primary text-white font-semibold px-8 py-3 rounded-full hover:bg-brand-primary-dark transition-colors">Learn
-                                More</a>
+                                class="inline-block bg-brand-primary text-white font-semibold px-8 py-3 rounded-full hover:bg-brand-primary-dark transition-colors">Contact
+                                Us</a>
                         </div>
                         <div class="rounded-lg overflow-hidden shadow-xl" data-aos="fade-left">
-                            <img src="https://picsum.photos/600/700?random=104" alt="Art Studio with Glass Art"
-                                class="w-full h-full object-cover">
+                            <img src="https://picsum.photos/600/700?random=104"
+                                alt="Crafting station with acrylic signs" class="w-full h-full object-cover">
                         </div>
                     </div>
                 </section>
@@ -319,11 +334,11 @@
                 <section id="contact" class="py-20 md:py-28 bg-brand-secondary">
                     <div class="container mx-auto px-4 text-center" data-aos="fade-up">
                         <i class="fa-solid fa-wand-magic-sparkles h-12 w-12 mx-auto text-brand-primary mb-4"></i>
-                        <h2 class="font-serif text-4xl md:text-5xl font-bold mb-4">Create Your Vision</h2>
-                        <p class="text-gray-600 mb-10 max-w-2xl mx-auto leading-relaxed">Have a unique idea? Commission
-                            a custom glass art piece tailored perfectly to your space and style. Let's bring your
+                        <h2 class="font-serif text-4xl md:text-5xl font-bold mb-4">Have an idea in mind?</h2>
+                        <p class="text-gray-600 mb-10 max-w-2xl mx-auto leading-relaxed">Let's make it real. Commission
+                            a custom sign tailored perfectly to your event and style. Let's bring your
                             artistic vision to life together.</p>
-                        <a href="mailto:contact@artistryhaven.com"
+                        <a href="mailto:contact@craftingsign.com"
                             class="inline-block bg-brand-primary text-white font-semibold px-10 py-3 rounded-full hover:bg-brand-primary-dark transition-colors shadow-lg transform hover:scale-105">Request
                             a Custom Order</a>
                     </div>
@@ -403,7 +418,7 @@
                                         class="w-full flex items-center justify-center gap-2 bg-brand-primary text-white font-semibold py-3.5 px-6 rounded-full shadow-lg hover:bg-brand-primary-dark transition-colors transform hover:scale-[1.02]">
                                         <i class="fa-solid fa-bag-shopping h-5 w-5"></i> Add to Cart
                                     </button>
-                                    <a :href="`https://wa.me/919876543210?text=${encodeURIComponent('Hi! I\'m interested in the ' + currentProduct.name + ' painting.')}`"
+                                    <a :href="`https://wa.me/919079199046?text=${encodeURIComponent('Hi! I\'m interested in the ' + currentProduct.name)}`"
                                         target="_blank"
                                         class="w-full flex items-center justify-center gap-2 bg-[#25D366] text-white font-semibold py-3.5 px-6 rounded-full shadow-lg hover:bg-[#1DA851] transition-colors transform hover:scale-[1.02]">
                                         <i class="fa-brands fa-whatsapp h-5 w-5"></i> Order on WhatsApp
@@ -431,8 +446,8 @@
                                         <div x-show="tab === 'shipping'" style="display: none;">
                                             <ul class="list-disc list-inside space-y-2">
                                                 <li>Securely packaged and shipped within 3-5 business days.</li>
-                                                <li>Standard shipping: 5-7 business days.</li>
-                                                <li>Returns accepted within 14 days of delivery.</li>
+                                                <li>We offer worldwide shipping!</li>
+                                                <li>Returns accepted within 14 days on non-custom items.</li>
                                                 <li>Item must be in original condition. Buyer pays return shipping.
                                                 </li>
                                                 <li>Custom orders are final sale and cannot be returned.</li>
@@ -506,15 +521,15 @@
                         <div class="absolute -top-16 -right-16 w-48 h-48 border-4 border-white/20 rounded-full"></div>
                         <div class="absolute -bottom-20 -left-10 w-64 h-64 bg-white/10 rounded-full"></div>
                         <i class="fa-solid fa-palette h-20 w-20 mb-4 z-10 text-white/80"></i>
-                        <h2 class="font-serif text-4xl font-bold mb-2 z-10">Artistry Haven</h2>
-                        <p class="z-10 opacity-80">Discover Exquisite Glass Art</p>
+                        <h2 class="font-serif text-4xl font-bold mb-2 z-10">Crafting Sign</h2>
+                        <p class="z-10 opacity-80">Custom Event & Wedding Decor</p>
                     </div>
                     <div class="p-8 md:p-12">
                         <div class="text-center mb-10">
                             <h2 class="font-serif text-3xl font-bold text-brand-text mb-2"
                                 x-text="loginTab === 'login' ? 'Welcome Back' : 'Create Account'"></h2>
                             <p class="text-gray-500 text-sm"
-                                x-text="loginTab === 'login' ? 'Sign in to access your account' : 'Join our community of art lovers'">
+                                x-text="loginTab === 'login' ? 'Sign in to access your account' : 'Join our community of creators'">
                             </p>
                         </div>
                         <div class="flex border border-gray-200 rounded-full p-1 mb-10 bg-gray-50">
@@ -803,10 +818,15 @@
                                 <label class="block text-sm font-medium mb-1 text-gray-700">Category</label>
                                 <select x-model="productModal.data.category" required
                                     class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-1 focus:ring-brand-primary focus:border-brand-primary text-sm bg-white">
-                                    <option>Glass Paintings</option>
-                                    <option>Acrylic Paintings</option>
-                                    <option>Mixed Media</option>
-                                    <option>Custom Orders</option>
+                                    <option>Welcome Sign</option>
+                                    <option>Seating Chart</option>
+                                    <option>Baby Shower</option>
+                                    <option>Birthday Sign</option>
+                                    <option>Table Number</option>
+                                    <option>Reserved Sign</option>
+                                    <option>Menu Cards</option>
+                                    <option>Thankyou Cards</option>
+                                    <option>Place Cards</option>
                                 </select>
                             </div>
                         </div>
@@ -818,7 +838,7 @@
                         <div>
                             <label class="block text-sm font-medium mb-1 text-gray-700">Image URL</label>
                             <input type="url" x-model="productModal.data.image" required
-                                placeholder="https://images.unsplash.com/..."
+                                placeholder="https://picsum.photos/..."
                                 class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-1 focus:ring-brand-primary focus:border-brand-primary text-sm">
                         </div>
                         <div>
@@ -849,7 +869,7 @@
                     <i class="fa-solid fa-envelope-open-text h-10 w-10 mx-auto text-brand-primary mb-4 opacity-80"></i>
                     <h2 class="font-serif text-3xl font-bold mb-2">Stay Inspired</h2>
                     <p class="text-gray-600 mb-8 max-w-lg mx-auto text-sm leading-relaxed">Join our newsletter for
-                        exclusive offers, new arrivals, and artistic inspiration delivered to your inbox.</p>
+                        exclusive offers, new arrivals, and event inspiration delivered to your inbox.</p>
                     <form @submit.prevent="showToast('Thank you for subscribing!', 'success')"
                         class="flex justify-center max-w-md mx-auto shadow-sm rounded-full border border-gray-200 overflow-hidden bg-white">
                         <input type="email" required placeholder="Enter your email address"
@@ -863,9 +883,15 @@
             <div class="container mx-auto px-4 py-16">
                 <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-10">
                     <div>
-                        <h3 class="font-serif text-2xl font-bold text-brand-primary mb-4">Artistry Haven</h3>
-                        <p class="text-gray-500 text-sm mb-6 leading-relaxed">Exquisite handmade glass art, crafted with
-                            passion.</p>
+                        <h3 class="font-serif text-2xl font-bold text-brand-primary mb-4">Crafting Sign</h3>
+                        <p class="text-gray-500 text-sm mb-4 leading-relaxed">Unique, handcrafted décor that reflects
+                            your personality and style.</p>
+                        <address class="text-gray-500 text-sm not-italic leading-relaxed mb-6">
+                            PLOT NO.121 KHANCHAN VIHAR,<br>
+                            BENAR ROAD, NEAR BENAR
+                            RAILWAY STATION, JAIPUR,<br>
+                            RAJASTHAN, 302012
+                        </address>
                         <div class="flex space-x-4">
                             <a href="#" class="text-gray-400 hover:text-brand-primary transition-colors"><i
                                     class="fa-brands fa-instagram h-5 w-5"></i></a>
@@ -893,20 +919,23 @@
                     <div>
                         <h3 class="font-semibold text-lg mb-4 tracking-wide">Shop</h3>
                         <ul class="space-y-3 text-sm">
-                            <li><a href="#" class="text-gray-500 hover:text-brand-primary transition-colors">Glass
-                                    Paintings</a></li>
-                            <li><a href="#" classs="text-gray-500 hover:text-brand-primary transition-colors">Acrylic
-                                    Art</a></li>
-                            <li><a href="#" class="text-gray-500 hover:text-brand-primary transition-colors">Mixed
-                                    Media</a></li>
-                            <li><a href="#" class="text-gray-500 hover:text-brand-primary transition-colors">New
-                                    Arrivals</a></li>
+                            <li><a href="#" class="text-gray-500 hover:text-brand-primary transition-colors">Welcome
+                                    Signs</a></li>
+                            <li><a href="#" class="text-gray-500 hover:text-brand-primary transition-colors">Seating
+                                    Charts</a></li>
+                            <li><a href="#" class="text-gray-500 hover:text-brand-primary transition-colors">Baby
+                                    Shower Signs</a></li>
+                            <li><a href="#" class="text-gray-500 hover:text-brand-primary transition-colors">Menu
+                                    Cards</a></li>
+                            <li><a href="#" class="text-gray-500 hover:text-brand-primary transition-colors">Place
+                                    Cards</a></li>
                         </ul>
                     </div>
                     <div>
                         <h3 class="font-semibold text-lg mb-4 tracking-wide">Support</h3>
                         <ul class="space-y-3 text-sm">
-                            <li><a href="#" class="text-gray-500 hover:text-brand-primary transition-colors">Contact
+                            <li><a href="mailto:contact@craftingsign.com"
+                                    class="text-gray-500 hover:text-brand-primary transition-colors">Contact
                                     Us</a></li>
                             <li><a href="#" class="text-gray-500 hover:text-brand-primary transition-colors">Shipping &
                                     Returns</a></li>
@@ -922,7 +951,7 @@
             <div class="bg-gray-50 py-5 border-t border-gray-200">
                 <div
                     class="container mx-auto px-4 flex flex-col sm:flex-row justify-between items-center text-xs text-gray-500">
-                    <p>&copy; 2025 Artistry Haven. All rights reserved.</p>
+                    <p>&copy; 2025 Crafting Sign. All rights reserved.</p>
                     <div class="flex items-center gap-1 mt-4 sm:mt-0">
                         <span>Payments Secured by</span>
                         <i class="fa-solid fa-shield-halved h-4 w-4 text-green-600"></i>
@@ -943,132 +972,142 @@
 
 
     <script>
+        // --- NEW Mock Data (Richer) ---
         const MOCK_PRODUCTS = [
             {
-                id: 1, name: 'Azure Dreamscape Bowl', price: 3200,
+                id: 1, name: 'Minimalist Acrylic Welcome Sign', price: 4800,
                 images: [
-                    'https://i.etsystatic.com/26919243/r/il/699303/6980908452/il_1588xN.6980908452_ojim.jpg',
-                    'https://i.etsystatic.com/26919243/r/il/8ce3e7/6980908356/il_1588xN.6980908356_7v6n.jpg',
-                    'https://i.etsystatic.com/26919243/r/il/9819bd/7028911495/il_1588xN.7028911495_ooho.jpg'
+                    'https://picsum.photos/600/600?random=1&category=wedding',
+                    'https://picsum.photos/600/600?random=2&category=wedding',
+                    'https://picsum.photos/600/600?random=3&category=wedding'
                 ],
-                category: 'Glass Paintings',
-                description: 'A stunning decorative bowl where deep azure and cobalt blues swirl together with veins of shimmering gold. Each piece is hand-blown, ensuring a unique pattern reminiscent of a celestial nebula. Perfect as a standalone centerpiece or for holding precious items.',
+                category: 'Welcome Sign',
+                description: 'A beautiful, modern acrylic welcome sign to greet your guests. Features 3D lettering for a stunning effect. Fully customizable with your names and event date. Stand not included.',
                 status: 'In Stock',
                 options: [
-                    { name: 'Accent Finish', values: ['Gold Vein', 'Silver Vein'] }
+                    { name: 'Size', values: ['18x24"', '24x36"'] },
+                    { name: 'Lettering Color', values: ['White', 'Black', 'Gold', 'Silver'] }
                 ],
                 reviews: [
-                    { rating: 5, user: 'Priya S.', comment: 'Absolutely breathtaking! The gold accent catches the light beautifully.' },
-                    { rating: 5, user: 'Mark T.', comment: 'Even better in person. Arrived securely packaged.' }
+                    { rating: 5, user: 'Priya S.', comment: 'Absolutely stunning! It was the perfect entrance piece for our wedding.' },
+                    { rating: 5, user: 'Mark T.', comment: 'High quality and arrived securely packaged. Highly recommend.' }
                 ]
             },
             {
-                id: 2, name: 'Sunset Radiance Vase', price: 4500,
+                id: 2, name: 'Elegant Frosted Seating Chart', price: 9500,
                 images: [
-                    'https://picsum.photos/600/600?random=4',
-                    'https://picsum.photos/600/600?random=5'
+                    'https://picsum.photos/600/600?random=4&category=event',
+                    'https://picsum.photos/600/600?random=5&category=event'
                 ],
-                category: 'Glass Paintings',
-                description: 'Capture the fleeting magic of a sunset with this radiant hand-blown vase. Layers of molten glass in hues of amber, ruby, and soft rose create a warm, inviting glow. Its elegant, tapered form is ideal for long-stemmed flowers or as a striking solo piece.',
+                category: 'Seating Chart',
+                description: 'A large, frosted acrylic seating chart that adds a touch of class to any reception. We will work with you to finalize your guest list and layout. Can accommodate up to 200 guests.',
                 status: 'In Stock',
                 options: [
-                    { name: 'Style', values: ['Tall (12")', 'Wide (8")'] },
-                    { name: 'Finish', values: ['Glossy', 'Matte Frosted'] }
+                    { name: 'Style', values: ['Frosted', 'Clear', 'Painted Back'] },
+                    { name: 'Orientation', values: ['Portrait', 'Landscape'] }
                 ],
                 reviews: [
-                    { rating: 5, user: 'Emily R.', comment: 'The colors are so vibrant. It completely transforms my living room.' }
+                    { rating: 5, user: 'Emily R.', comment: 'So elegant. We received so many compliments on it.' }
                 ]
             },
             {
-                id: 3, name: 'Emerald Forest Sculpture', price: 7800,
+                id: 3, name: '"Oh Baby" Baby Shower Sign', price: 3500,
                 images: [
-                    'https://picsum.photos/600/600?random=6',
-                    'https://picsum.photos/600/600?random=7'
+                    'https://picsum.photos/600/600?random=6&category=party',
+                    'https://picsum.photos/600/600?random=7&category=party'
                 ],
-                category: 'Mixed Media',
-                description: 'An abstract, multi-layered glass sculpture that evokes the depth and mystery of an ancient forest. Panels of fused glass in shades of emerald, moss, and teal are textured and stacked to create a stunning 3D effect. Mounted on a solid reclaimed wood base.',
-                status: 'Low Stock',
-                options: [],
-                reviews: [
-                    { rating: 5, user: 'David L.', comment: 'A true work of art. The way it plays with light is incredible.' },
-                    { rating: 4, user: 'Sarah K.', comment: 'Beautiful piece, though a bit smaller than I expected.' }
-                ]
-            },
-            {
-                id: 4, name: 'Crimson Lava Flow Plate', price: 2100,
-                images: [
-                    'https://picsum.photos/600/600?random=8',
-                    'https://picsum.photos/600/600?random=9'
-                ],
-                category: 'Glass Paintings',
-                description: 'A dynamic fused glass plate with flowing, organic patterns of deep crimson, black, and fiery orange. This piece has a tangible energy, reminiscent of volcanic lava. It serves as a dramatic charger plate or a stunning piece of wall art (hanger included).',
-                status: 'In Stock',
-                options: [],
-                reviews: [
-                    { rating: 5, user: 'Chen W.', comment: 'Bold and beautiful. I have it displayed on my wall.' }
-                ]
-            },
-            {
-                id: 5, name: 'Golden Spiral Abstract', price: 3900,
-                images: [
-                    'https://picsum.photos/600/600?random=10',
-                    'https://picsum.photos/600/600?random=11'
-                ],
-                category: 'Acrylic Paintings',
-                description: 'An intricate acrylic pour on a circular glass panel, capturing a mesmerizing golden spiral against a backdrop of deep indigo and white. This piece is sealed with a high-gloss resin to protect the art and enhance its depth. Comes ready to hang.',
+                category: 'Baby Shower',
+                description: 'The perfect backdrop piece for a baby shower. This "Oh Baby" sign is crafted from premium acrylic with beautiful script lettering. Can be customized with the baby\'s name or due date.',
                 status: 'In Stock',
                 options: [
-                    { name: 'Diameter', values: ['18"', '24"'] }
+                    { name: 'Color Theme', values: ['Neutral (Beige/White)', 'Baby Blue', 'Baby Pink', 'Sage Green'] }
                 ],
                 reviews: [
-                    { rating: 5, user: 'Michelle B.', comment: 'I am in love with this piece. The spiral is hypnotic.' }
+                    { rating: 5, user: 'David L.', comment: 'A true work of art. It was the centerpiece of our decor.' }
                 ]
             },
             {
-                id: 6, name: 'Ocean Whisper Panel', price: 5200,
+                id: 4, name: 'Modern Birthday Welcome Sign', price: 3200,
                 images: [
-                    'https://picsum.photos/600/600?random=12',
-                    'https://picsum.photos/600/600?random=13'
+                    'https://picsum.photos/600/600?random=8&category=birthday',
+                    'https://picsum.photos/600/600?random=9&category=birthday'
                 ],
-                category: 'Glass Paintings',
-                description: 'A large, decorative stained glass panel with gentle, abstract waves of teal, seafoam green, and clear textured glass. Designed to be hung in a window, it casts calming, watery light into any room. Calming, elegant, and timeless.',
-                status: 'Out of Stock',
-                options: [],
-                reviews: [
-                    { rating: 5, user: 'Tom H.', comment: 'This was a custom order and it exceeded my expectations. The craftsmanship is top-notch.' }
-                ]
-            },
-            {
-                id: 7, name: 'Amethyst Geode Coasters', price: 1800,
-                images: [
-                    'https://picsum.photos/600/600?random=14',
-                    'https://picsum.photos/600/600?random=15'
-                ],
-                category: 'Mixed Media',
-                description: 'A set of four stunning coasters made from resin and crushed glass to mimic the natural beauty of an amethyst geode. Each coaster is unique, with deep purples, sparkling crystals, and an elegant gold-leafed edge. Backed with cork to protect your furniture.',
+                category: 'Birthday Sign',
+                description: 'Celebrate in style! This custom birthday sign is perfect for milestone birthdays (18th, 21st, 30th, 50th). Features a modern layout with the name and age.',
                 status: 'In Stock',
                 options: [
-                    { name: 'Edge Finish', values: ['Gold', 'Silver', 'Natural'] }
+                    { name: 'Shape', values: ['Arch', 'Rectangle', 'Circle'] },
+                    { name: 'Finish', values: ['Matte Black', 'Matte White', 'Blush Pink'] }
                 ],
                 reviews: [
-                    { rating: 5, user: 'Jessica P.', comment: 'So glamorous! They look like jewelry for my coffee table.' }
+                    { rating: 5, user: 'Chen W.', comment: 'Bold and beautiful. My daughter loved it for her 21st!' }
                 ]
             },
             {
-                id: 8, name: 'Fractured Light Suncatcher', price: 1500,
+                id: 5, name: 'Acrylic Table Numbers (Set of 10)', price: 4100,
                 images: [
-                    'https://picsum.photos/600/600?random=16',
-                    'https://picsum.photos/600/600?random=17'
+                    'https://picsum.photos/600/600?random=10&category=table',
+                    'https://picsum.photos/600/600?random=11&category=table'
                 ],
-                category: 'Glass Paintings',
-                description: 'A delicate suncatcher made from beveled glass and dichroic film that fractures sunlight into a dazzling array of rainbows. Hang it in a sunny window to fill your space with light and positive energy. Simple, modern, and magical.',
+                category: 'Table Number',
+                description: 'A set of 10 minimalist acrylic table numbers with stands. Clear acrylic with vinyl or 3D lettering. Helps your guests find their table with ease and style.',
                 status: 'In Stock',
                 options: [
-                    { name: 'Shape', values: ['Crystal Point', 'Mandala', 'Crescent Moon'] }
+                    { name: 'Lettering', values: ['White Vinyl', 'Black Vinyl', 'Gold 3D Acrylic'] },
+                    { name: 'Stand Color', values: ['Clear', 'Wood', 'Gold'] }
+                ],
+                reviews: [
+                    { rating: 5, user: 'Michelle B.', comment: 'So chic and matched our theme perfectly.' }
+                ]
+            },
+            {
+                id: 6, name: 'Arch Reserved Sign', price: 1200,
+                images: [
+                    'https://picsum.photos/600/600?random=12&category=sign',
+                    'https://picsum.photos/600/600?random=13&category=sign'
+                ],
+                category: 'Reserved Sign',
+                description: 'A small, elegant arch-shaped "Reserved" sign for ceremony chairs or special tables. Includes a silk ribbon. Price is per sign.',
+                status: 'In Stock',
+                options: [
+                    { name: 'Ribbon Color', values: ['White', 'Black', 'Dusty Blue', 'None'] }
+                ],
+                reviews: []
+            },
+            {
+                id: 7, name: 'Minimalist Menu Cards (Set of 25)', price: 3800,
+                images: [
+                    'https://picsum.photos/600/600?random=14&category=menu',
+                    'https://picsum.photos/600/600?random=15&category=menu'
+                ],
+                category: 'Menu Cards',
+                description: 'A set of 25 beautifully designed menu cards, printed on high-quality vellum or thick cardstock. We will customize the text to match your event\'s menu.',
+                status: 'In Stock',
+                options: [
+                    { name: 'Material', values: ['Vellum', 'White Cardstock', 'Black Cardstock'] },
+                    { name: 'Print Color', values: ['Black', 'White', 'Gold Foil'] }
+                ],
+                reviews: [
+                    { rating: 5, user: 'Jessica P.', comment: 'So glamorous! The gold foil was perfect.' }
+                ]
+            },
+            {
+                id: 8, name: 'Acrylic Place Cards (Set of 10)', price: 2000,
+                images: [
+                    'https://picsum.photos/600/600?random=16&category=name',
+                    'https://picsum.photos/600/600?random=17&category=name'
+                ],
+                category: 'Place Cards',
+                description: 'A set of 10 personalized acrylic place cards with your guests\' names. A beautiful keepsake for your attendees. Please provide name list after checkout.',
+                status: 'In Stock',
+                options: [
+                    { name: 'Style', values: ['Clear', 'Frosted'] },
+                    { name: 'Ink Color', values: ['White', 'Black', 'Gold'] }
                 ],
                 reviews: []
             }
         ];
+
 
         document.addEventListener('alpine:init', () => {
 
@@ -1094,7 +1133,7 @@
                             ...product,
                             quantity: quantity,
                             selectedOptions: options,
-                            cartId: cartId // Store the unique ID
+                            cartId: cartId
                         });
                     }
                 },
@@ -1121,8 +1160,8 @@
             Alpine.store('auth', {
                 user: null,
                 users: [
-                    { email: 'admin@artistry.com', password: 'admin', name: 'Admin User', role: 'admin' },
-                    { email: 'demo@artistry.com', password: 'demo', name: 'Demo User', role: 'customer' }
+                    { email: 'admin@craftingsign.com', password: 'admin', name: 'Admin User', role: 'admin' },
+                    { email: 'demo@demo.com', password: 'demo', name: 'Demo User', role: 'customer' }
                 ],
                 init() {
                     const savedUser = localStorage.getItem('artistryUser');
@@ -1178,6 +1217,7 @@
                 }
             });
 
+            // --- Main App Component Data ---
             Alpine.data('artistryHaven', () => ({
                 // State
                 view: 'home',
@@ -1196,7 +1236,7 @@
                 productModal: {
                     open: false,
                     id: null,
-                    data: { name: '', price: 0, category: 'Glass Paintings', description: '', image: '', status: 'In Stock' }
+                    data: { name: '', price: 0, category: 'Welcome Sign', description: '', image: '', status: 'In Stock' }
                 },
 
                 toast: {
@@ -1205,29 +1245,29 @@
                     type: 'success',
                     timeout: null
                 },
+
                 heroSlides: [
                     {
-                        image: 'https://i.pinimg.com/1200x/00/4b/69/004b6998d802de7feecdac3b5f6a2e48.jpg',
-                        title: 'Where Glass Meets Soul',
-                        subtitle: 'Explore exquisite handcrafted glass art that captures light and inspires emotion.',
+                        image: 'https://picsum.photos/1920/1080?random=101&blur=1&category=wedding',
+                        title: 'Make Your Moments Memorable',
+                        subtitle: 'Custom acrylic welcome signs, seating charts, and event décor, handmade with love.',
                         buttonText: 'Shop Collections'
                     },
                     {
-                        image: 'https://i.pinimg.com/1200x/b8/f3/b6/b8f3b6ef4db1b64f2138602a1745671a.jpg',
-                        title: 'Vibrant Autumn Arrivals',
-                        subtitle: 'Discover new pieces featuring rich colors and intricate details, perfect for the season.',
-                        buttonText: 'View New Art'
+                        image: 'https://picsum.photos/1920/1080?random=102&blur=1&category=event',
+                        title: 'Elegant Event Signage',
+                        subtitle: 'From weddings to baby showers, add a personal and elegant touch to every occasion.',
+                        buttonText: 'View All Signs'
                     },
                     {
-                        image: 'https://i.pinimg.com/1200x/00/4b/69/004b6998d802de7feecdac3b5f6a2e48.jpg',
-                        title: 'Bespoke Artistry',
-                        subtitle: 'Commission a unique glass masterpiece tailored precisely to your vision and space.',
+                        image: 'https://picsum.photos/1920/1080?random=103&blur=1&category=party',
+                        title: 'Your Vision, Brought to Life',
+                        subtitle: 'We offer worldwide shipping and full custom designs to create exactly what you imagine.',
                         buttonText: 'Request Custom Art'
                     }
                 ],
 
                 async fetchProducts() {
-                    const API_URL = 'https.api.example.com/products'; // Intentionally fails
                     try {
                         if (true) throw new Error('Using mock data');
                     } catch (error) {
@@ -1241,6 +1281,7 @@
                     Alpine.store('cart').init();
                     Alpine.store('auth').init();
                     await this.fetchProducts();
+
 
                     AOS.init({
                         duration: 800,
@@ -1320,6 +1361,7 @@
                     this.navigate('product');
                 },
 
+                // --- Admin Product Methods ---
                 openProductModal(product = null) {
                     if (product) {
                         this.productModal.id = product.id;
@@ -1329,7 +1371,7 @@
                         };
                     } else {
                         this.productModal.id = null;
-                        this.productModal.data = { name: '', price: null, category: 'Glass Paintings', description: '', image: '', status: 'In Stock' };
+                        this.productModal.data = { name: '', price: null, category: 'Welcome Sign', description: '', image: '', status: 'In Stock' };
                     }
                     this.productModal.open = true;
                 },
