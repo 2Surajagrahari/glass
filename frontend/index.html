@@ -6,12 +6,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Crafting Sign - Custom Event & Wedding Decor</title>
 
+    <link rel="icon"
+        href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>✨</text></svg>">
+
     <script src="https://cdn.tailwindcss.com"></script>
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" />
-
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
-
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -46,7 +47,7 @@
 
 <body class="bg-brand-bg text-brand-text font-sans tracking-tight antialiased">
 
-    <div x-data="artistryHaven" x-init="init()" x-cloak>
+    <div x-data="craftingSignApp" x-init="init()" x-cloak>
 
         <div x-show="toast.visible" x-transition:enter="transition ease-out duration-300"
             x-transition:enter-start="opacity-0 transform translate-y-2"
@@ -62,123 +63,10 @@
             <button @click="toast.visible = false" class="ml-4 opacity-75 hover:opacity-100">&times;</button>
         </div>
 
-        <!-- <header class="sticky top-0 z-50 bg-white/90 backdrop-blur-lg shadow-sm border-b border-gray-100">
-            <nav class="container mx-auto flex items-center justify-between p-4">
-                <a href="#" @click.prevent="navigate('home')"
-                    class="font-serif text-3xl font-bold text-brand-primary">Crafting Sign</a>
-
-                <ul class="hidden md:flex items-center gap-8 text-sm font-medium tracking-wide">
-                    <li><a href="#" @click.prevent="navigate('home')"
-                            class="hover:text-brand-primary transition-colors">Home</a></li>
-                    <li><a href="#" @click.prevent="scrollTo('about')"
-                            class="hover:text-brand-primary transition-colors">About</a></li>
-                    <li><a href="#" @click.prevent="scrollTo('products')"
-                            class="hover:text-brand-primary transition-colors">Collections</a></li>
-
-                    <li class="relative" x-data="{ open: false }" @mouseenter="open = true" @mouseleave="open = false">
-                        <button class="flex items-center gap-1 hover:text-brand-primary transition-colors">
-                            Categories <i class="fa-solid fa-chevron-down h-4 w-4 transition-transform"
-                                :class="{'rotate-180': open}"></i>
-                        </button>
-                        <div x-show="open" x-transition
-                            class="absolute top-full left-1/2 -translate-x-1/2 mt-2 w-56 bg-white rounded-md shadow-lg p-2 z-50 border border-gray-100">
-                            <a href="#"
-                                class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-50 rounded-md">Welcome
-                                Signs</a>
-                            <a href="#"
-                                class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-50 rounded-md">Seating
-                                Charts</a>
-                            <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-50 rounded-md">Baby
-                                Shower</a>
-                            <a href="#"
-                                class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-50 rounded-md">Birthday
-                                Signs</a>
-                            <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-50 rounded-md">Table
-                                Numbers</a>
-                            <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-50 rounded-md">Menu
-                                Cards</a>
-                            <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-50 rounded-md">Place
-                                Cards</a>
-                        </div>
-                    </li>
-                    <li><a href="#" @click.prevent="scrollTo('contact')"
-                            class="hover:text-brand-primary transition-colors">Contact</a></li>
-                </ul>
-
-                <div class="flex items-center gap-5">
-                    <button @click="cartOpen = true" class="relative hover:text-brand-primary transition-colors">
-                        <i class="fa-solid fa-bag-shopping h-6 w-6"></i>
-                        <span x-show="$store.cart.count > 0"
-                            class="absolute -top-2 -right-2 flex h-5 w-5 items-center justify-center rounded-full bg-brand-primary text-xs font-bold text-white"
-                            x-text="$store.cart.count"></span>
-                    </button>
-                    <template x-if="!$store.auth.user">
-                        <button @click="navigate('login')"
-                            class="hidden md:inline-block px-5 py-2 text-sm font-semibold rounded-full border border-brand-primary text-brand-primary hover:bg-brand-primary hover:text-white transition-all">Login</button>
-                    </template>
-                    <template x-if="$store.auth.user">
-                        <div class="relative" x-data="{ dropdownOpen: false }">
-                            <button @click="dropdownOpen = !dropdownOpen" class="flex items-center gap-2">
-                                <span class="hidden md:inline text-sm"
-                                    x-text="`Hi, ${$store.auth.user.name.split(' ')[0]}`"></span>
-                                <img src="https://picsum.photos/40/40?random=200" alt="avatar"
-                                    class="h-8 w-8 rounded-full border-2 border-brand-primary/50 object-cover">
-                            </button>
-                            <div x-show="dropdownOpen" @click.away="dropdownOpen = false"
-                                class="absolute right-0 mt-3 w-48 bg-white rounded-md shadow-lg py-1 z-50 border border-gray-100">
-                                <template x-if="$store.auth.user.role === 'admin'">
-                                    <a href="#" @click.prevent="navigate('admin'); dropdownOpen = false"
-                                        class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-50">Admin Panel</a>
-                                </template>
-                                <a href="#" @click.prevent="$store.auth.logout(); dropdownOpen = false;"
-                                    class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-50">Logout</a>
-                            </div>
-                        </div>
-                    </template>
-                    <button @click="mobileMenuOpen = !mobileMenuOpen" class="md:hidden">
-                        <i class="fa-solid fa-bars h-6 w-6"></i>
-                    </button>
-                </div>
-            </nav>
-
-            <div x-show="mobileMenuOpen" x-transition class="md:hidden bg-white/95 border-t border-gray-100">
-                <ul class="flex flex-col items-center gap-4 py-4 divide-y divide-gray-100 w-full">
-                    <li><a href="#" @click.prevent="navigate('home'); mobileMenuOpen=false"
-                            class="block py-2 hover:text-brand-primary transition-colors">Home</a></li>
-                    <li><a href="#" @click.prevent="scrollTo('about'); mobileMenuOpen=false"
-                            class="block py-2 hover:text-brand-primary transition-colors">About</a></li>
-                    <li><a href="#" @click.prevent="scrollTo('products'); mobileMenuOpen=false"
-                            class="block py-2 hover:text-brand-primary transition-colors">Collections</a></li>
-                    <li class="w-full text-center pt-2">
-                        <span class="font-semibold text-gray-500 text-xs tracking-widest uppercase">Categories</span>
-                        <div class="mt-2 space-y-2">
-                            <a href="#" @click.prevent="mobileMenuOpen=false"
-                                class="block text-gray-700 hover:text-brand-primary">Welcome Signs</a>
-                            <a href="#" @click.prevent="mobileMenuOpen=false"
-                                class="block text-gray-700 hover:text-brand-primary">Seating Charts</a>
-                            <a href="#" @click.prevent="mobileMenuOpen=false"
-                                class="block text-gray-700 hover:text-brand-primary">Baby Shower</a>
-                            <a href="#" @click.prevent="mobileMenuOpen=false"
-                                class="block text-gray-700 hover:text-brand-primary">Birthday Signs</a>
-                            <a href="#" @click.prevent="mobileMenuOpen=false"
-                                class="block text-gray-700 hover:text-brand-primary">Table Numbers</a>
-                        </div>
-                    </li>
-                    <li><a href="#" @click.prevent="scrollTo('contact'); mobileMenuOpen=false"
-                            class="block pt-2 hover:text-brand-primary transition-colors">Contact</a></li>
-                    <template x-if="!$store.auth.user">
-                        <li class="pt-4"><a href="#" @click.prevent="navigate('login'); mobileMenuOpen=false"
-                                class="px-5 py-2 rounded-full border border-brand-primary text-brand-primary">Login</a>
-                        </li>
-                    </template>
-                </ul>
-            </div>
-        </header> -->
         <header class="sticky top-0 z-50 bg-white/90 backdrop-blur-lg shadow-sm border-b border-gray-100">
             <nav class="container mx-auto flex items-center justify-between p-4 gap-4">
                 <a href="#" @click.prevent="navigate('home')"
                     class="font-serif text-3xl font-bold text-brand-primary">Crafting Sign</a>
-
                 <ul class="hidden lg:flex items-center gap-8 text-sm font-medium tracking-wide">
                     <li><a href="#" @click.prevent="navigate('home')"
                             class="hover:text-brand-primary transition-colors">Home</a></li>
@@ -203,13 +91,11 @@
                     <li><a href="#" @click.prevent="scrollTo('contact')"
                             class="hover:text-brand-primary transition-colors">Contact</a></li>
                 </ul>
-
                 <div class="hidden md:block relative flex-1 max-w-xs">
                     <input type="text" placeholder="Search for signs..."
                         class="w-full pl-10 pr-4 py-2 text-sm border border-gray-200 rounded-full bg-brand-secondary/50 focus:bg-white focus:ring-1 focus:ring-brand-primary focus:border-brand-primary transition-all">
                     <i class="fa-solid fa-search h-4 w-4 absolute left-4 top-1/2 -translate-y-1/2 text-gray-400"></i>
                 </div>
-
                 <div class="flex items-center gap-5">
                     <div class="relative" x-data="{ open: false }">
                         <button @click="open = !open"
@@ -228,19 +114,16 @@
                                 class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-50">CAD ($) - Canadian</a>
                         </div>
                     </div>
-
                     <button @click="cartOpen = true" class="relative hover:text-brand-primary transition-colors">
                         <i class="fa-solid fa-bag-shopping h-6 w-6"></i>
                         <span x-show="$store.cart.count > 0"
                             class="absolute -top-2 -right-2 flex h-5 w-5 items-center justify-center rounded-full bg-brand-primary text-xs font-bold text-white"
                             x-text="$store.cart.count"></span>
                     </button>
-
                     <template x-if="!$store.auth.user">
                         <button @click="navigate('login')"
                             class="hidden md:inline-block px-5 py-2 text-sm font-semibold rounded-full border border-brand-primary text-brand-primary hover:bg-brand-primary hover:text-white transition-all">Login</button>
                     </template>
-
                     <template x-if="$store.auth.user">
                         <div class="relative" x-data="{ dropdownOpen: false }">
                             <button @click="dropdownOpen = !dropdownOpen" class="flex items-center gap-2">
@@ -264,40 +147,75 @@
                             </div>
                         </div>
                     </template>
-                    <button @click="mobileMenuOpen = !mobileMenuOpen" class="lg:hidden">
+                    <button @click="mobileMenuOpen = true" class="lg:hidden">
                         <i class="fa-solid fa-bars h-6 w-6"></i>
                     </button>
                 </div>
             </nav>
-
-            <div x-show="mobileMenuOpen" x-transition class="lg:hidden bg-white/95 border-t border-gray-100">
-                <ul class="flex flex-col items-center gap-4 py-4 divide-y divide-gray-100 w-full">
-                    <li><a href="#" @click.prevent="navigate('home'); mobileMenuOpen=false"
-                            class="block py-2 hover:text-brand-primary transition-colors">Home</a></li>
-                    <li><a href="#" @click.prevent="navigate('shop'); mobileMenuOpen=false"
-                            class="block py-2 hover:text-brand-primary transition-colors">Shop</a></li>
-                    <li><a href="#" @click.prevent="scrollTo('about'); mobileMenuOpen=false"
-                            class="block py-2 hover:text-brand-primary transition-colors">About</a></li>
-                    <li class="w-full text-center pt-2">
-                        <span class="font-semibold text-gray-500 text-xs tracking-widest uppercase">Categories</span>
-                        <div class="mt-2 space-y-2">
-                            <template x-for="category in allCategories.filter(c => c !== 'All')" :key="category">
-                                <a href="#"
-                                    @click.prevent="activeCategory = category; navigate('shop'); mobileMenuOpen=false"
-                                    class="block text-gray-700 hover:text-brand-primary" x-text="category"></a>
-                            </template>
-                        </div>
-                    </li>
-                    <li><a href="#" @click.prevent="scrollTo('contact'); mobileMenuOpen=false"
-                            class="block pt-2 hover:text-brand-primary transition-colors">Contact</a></li>
-                    <template x-if="!$store.auth.user">
-                        <li class="pt-4"><a href="#" @click.prevent="navigate('login'); mobileMenuOpen=false"
-                                class="px-5 py-2 rounded-full border border-brand-primary text-brand-primary">Login</a>
-                        </li>
-                    </template>
-                </ul>
-            </div>
         </header>
+
+        <div x-show="mobileMenuOpen" x-transition:enter="transition ease-out duration-300"
+            x-transition:enter-start="opacity-0" x-transition:enter-end="opacity-100"
+            x-transition:leave="transition ease-in duration-300" x-transition:leave-start="opacity-100"
+            x-transition:leave-end="opacity-0" class="fixed inset-0 bg-black/50 z-[98]" @click="mobileMenuOpen = false"
+            style="display: none;"></div>
+
+        <div x-show="mobileMenuOpen" x-transition:enter="transition ease-out duration-300"
+            x-transition:enter-start="transform translate-x-full" x-transition:enter-end="transform translate-x-0"
+            x-transition:leave="transition ease-in duration-300" x-transition:leave-start="transform translate-x-0"
+            x-transition:leave-end="transform translate-x-full"
+            class="fixed top-0 right-0 h-full w-full max-w-sm bg-brand-bg z-[99] shadow-2xl p-6 flex flex-col overflow-y-auto"
+            style="display: none;">
+
+            <div class="flex items-center justify-between mb-10">
+                <h3 class="font-serif text-2xl font-bold text-brand-primary">Menu</h3>
+                <button @click="mobileMenuOpen = false" class="text-gray-500 hover:text-brand-primary">
+                    <i class="fa-solid fa-xmark h-6 w-6"></i>
+                </button>
+            </div>
+
+            <ul class="flex flex-col text-lg font-medium divide-y divide-gray-200">
+                <li><a href="#" @click.prevent="navigate('home'); mobileMenuOpen=false"
+                        class="block py-4 hover:text-brand-primary transition-colors">Home</a></li>
+                <li><a href="#" @click.prevent="navigate('shop'); mobileMenuOpen=false"
+                        class="block py-4 hover:text-brand-primary transition-colors">Shop</a></li>
+
+                <li x-data="{ open: false }">
+                    <button @click="open = !open"
+                        class="w-full flex justify-between items-center py-4 hover:text-brand-primary transition-colors">
+                        <span>Categories</span>
+                        <i class="fa-solid fa-chevron-down h-4 w-4 transition-transform"
+                            :class="{'rotate-180': open}"></i>
+                    </button>
+                    <div x-show="open" x-transition class="pl-4 pb-2 text-sm font-normal text-gray-600">
+                        <template x-for="category in allCategories.filter(c => c !== 'All')" :key="category">
+                            <a href="#"
+                                @click.prevent="activeCategory = category; navigate('shop'); mobileMenuOpen=false"
+                                class="block py-2 hover:text-brand-primary" x-text="category"></a>
+                        </template>
+                    </div>
+                </li>
+
+                <li><a href="#" @click.prevent="scrollTo('about'); mobileMenuOpen=false"
+                        class="block py-4 hover:text-brand-primary transition-colors">About</a></li>
+                <li><a href="#" @click.prevent="scrollTo('contact'); mobileMenuOpen=false"
+                        class="block py-4 hover:text-brand-primary transition-colors">Contact</a></li>
+            </ul>
+
+            <div class="mt-auto pt-6">
+                <template x-if="!$store.auth.user">
+                    <a href="#" @click.prevent="navigate('login'); mobileMenuOpen=false"
+                        class="block w-full text-center px-5 py-3 rounded-full bg-brand-primary text-white font-semibold">Login
+                        / Register</a>
+                </template>
+                <template x-if="$store.auth.user">
+                    <a href="#" @click.prevent="navigate('account'); mobileMenuOpen=false"
+                        class="block w-full text-center px-5 py-3 rounded-full border border-brand-primary text-brand-primary font-semibold">My
+                        Account</a>
+                </template>
+            </div>
+        </div>
+
 
         <main>
             <div x-show="view === 'home'">
@@ -365,9 +283,9 @@
                         <div class="swiper featured-gallery" x-init="initSwiper()" data-aos="fade-up"
                             data-aos-delay="100">
                             <div class="swiper-wrapper">
-                                <template x-for="product in products.slice(0, 8)" :key="product.id">
+                                <template x-for="product in products.slice(0, 10)" :key="product.id">
                                     <div class="swiper-slide">
-                                        <div @click="viewProduct(product)"
+                                        <div @click="openQuickViewModal(product)"
                                             class="group relative overflow-hidden rounded-lg cursor-pointer shadow-sm hover:shadow-xl transition-shadow duration-300 aspect-square">
                                             <img class="h-full w-full object-cover group-hover:scale-105 transition-transform duration-300"
                                                 :src="product.images[0]" :alt="product.name">
@@ -418,13 +336,14 @@
                         <h2 class="font-serif text-4xl md:text-5xl font-bold text-center mb-16" data-aos="fade-up">Our
                             Collections</h2>
                         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 md:gap-10">
-                            <template x-for="(product, index) in products" :key="product.id">
-                                <div class="bg-white rounded-lg shadow-md overflow-hidden group transition-all transform hover:shadow-xl hover:-translate-y-2 flex flex-col"
+                            <template x-for="(product, index) in products.slice(0, 6)" :key="product.id">
+                                <div @click="viewProduct(product)"
+                                    class="cursor-pointer bg-white rounded-lg shadow-md overflow-hidden group transition-all transform hover:shadow-xl hover:-translate-y-2 flex flex-col"
                                     data-aos="fade-up" :data-aos-delay="index * 100">
                                     <div class="relative h-72 overflow-hidden">
                                         <img :src="product.images[0]" :alt="product.name"
                                             class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">
-                                        <button @click.stop="viewProduct(product)"
+                                        <button @click.stop="openQuickViewModal(product)"
                                             class="absolute bottom-4 left-1/2 -translate-x-1/2 bg-white/90 text-brand-text px-4 py-2 rounded-full text-xs font-semibold opacity-0 group-hover:opacity-100 transition-opacity duration-300 whitespace-nowrap hover:bg-white">
                                             Quick View
                                         </button>
@@ -434,7 +353,7 @@
                                         <p class="text-gray-500 text-xs mb-3 uppercase tracking-wider"
                                             x-text="product.category"></p>
                                         <p class="text-2xl font-serif text-brand-primary mb-4 mt-auto"
-                                            x-text="`₹${product.price.toLocaleString()}`"></p>
+                                            x-text="formatCurrency(product.price)"></p>
 
                                         <div class="flex items-center gap-3 mt-2">
                                             <button @click="viewProduct(product)"
@@ -442,7 +361,7 @@
                                                 View Details
                                             </button>
                                             <button
-                                                @click.stop="$store.cart.add(product, 1, product.options ? Object.fromEntries(product.options.map(opt => [opt.name, opt.values[0]])) : {}); showToast(`${product.name} added to cart!`, 'success')"
+                                                @click.stop="loginGate(() => { $store.cart.add(product, 1, product.options ? Object.fromEntries(product.options.map(opt => [opt.name, opt.values[0]])) : {}); showToast(`${product.name} added to cart!`, 'success') })"
                                                 title="Add to Cart"
                                                 class="flex-shrink-0 p-3 bg-brand-secondary text-brand-primary rounded-full hover:bg-gray-200 transition-colors">
                                                 <i class="fa-solid fa-bag-shopping h-5 w-5"></i>
@@ -452,6 +371,14 @@
                                 </div>
                             </template>
                         </div>
+
+                        <div class="text-center mt-16">
+                            <button @click="navigate('shop')"
+                                class="bg-brand-primary text-white font-semibold px-10 py-3 rounded-full hover:bg-brand-primary-dark transition-colors shadow-lg transform hover:scale-105">
+                                View All Products
+                            </button>
+                        </div>
+
                     </div>
                 </section>
 
@@ -470,10 +397,180 @@
 
             </div>
 
+            <div x-show="view === 'shop'" class="min-h-screen bg-white pt-20" style="display: none;">
+                <div class="container mx-auto p-4 md:p-8">
+                    <div class="pt-12 text-center mb-12">
+                        <h1 class="font-serif text-5xl font-bold">Shop All Collections</h1>
+                        <p class="text-lg text-gray-600 mt-2">Find the perfect piece for your celebration.</p>
+                    </div>
+
+                    <div
+                        class="lg:hidden sticky top-16 z-30 bg-white/90 backdrop-blur-md border-b border-gray-200 -mx-4 px-4">
+                        <div class="flex items-center justify-between h-16">
+                            <button @click="filterMenuOpen = true"
+                                class="flex items-center gap-2 text-brand-text font-medium">
+                                <i class="fa-solid fa-filter h-4 w-4 text-gray-500"></i>
+                                <span>Filters</span>
+                            </button>
+
+                            <div class="flex items-center gap-2">
+                                <label for="sort-mobile" class="text-sm font-medium">Sort:</label>
+                                <select x-model="sortBy" id="sort-mobile"
+                                    class="text-sm bg-transparent border-none focus:ring-0 p-0 pr-6 text-brand-text font-medium">
+                                    <option value="default">Default</option>
+                                    <option value="price-asc">Price: Low to High</option>
+                                    <option value="price-desc">Price: High to Low</option>
+                                    <option value="name-asc">Name: A to Z</option>
+                                    <option value="name-desc">Name: Z to A</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-1 lg:grid-cols-4 gap-8 pt-8">
+                        <aside
+                            class="hidden lg:block col-span-1 bg-brand-bg/50 p-6 rounded-lg shadow-sm border border-gray-200 h-min lg:sticky top-28">
+                            <h3 class="font-serif text-2xl font-semibold mb-6 border-b pb-3">Filters</h3>
+
+                            <div>
+                                <h4 class="font-semibold mb-3 text-brand-text">Category</h4>
+                                <div class="space-y-2">
+                                    <label
+                                        class="flex items-center text-sm text-gray-600 hover:text-brand-primary cursor-pointer">
+                                        <input type="radio" x-model="activeCategory" value="All" name="category-desktop"
+                                            class="h-4 w-4 text-brand-primary border-gray-300 focus:ring-brand-primary/50">
+                                        <span class="ml-3">All Categories</span>
+                                    </label>
+                                    <template x-for="category in allCategories.filter(c => c !== 'All')"
+                                        :key="category">
+                                        <label
+                                            class="flex items-center text-sm text-gray-600 hover:text-brand-primary cursor-pointer">
+                                            <input type="radio" x-model="activeCategory" :value="category"
+                                                name="category-desktop"
+                                                class="h-4 w-4 text-brand-primary border-gray-300 focus:ring-brand-primary/50">
+                                            <span class="ml-3" x-text="category"></span>
+                                        </label>
+                                    </template>
+                                </div>
+                            </div>
+                        </aside>
+
+                        <div class="col-span-1 lg:col-span-3">
+                            <div class="hidden lg:flex justify-end mb-6">
+                                <div class="flex items-center gap-2">
+                                    <label for="sort-desktop" class="text-sm font-medium text-gray-600">Sort By:</label>
+                                    <select x-model="sortBy" id="sort-desktop"
+                                        class="w-48 bg-white border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-1 focus:ring-brand-primary/50 focus:border-brand-primary transition p-2 text-sm">
+                                        <option value="default">Default</option>
+                                        <option value="price-asc">Price: Low to High</option>
+                                        <option value="price-desc">Price: High to Low</option>
+                                        <option value="name-asc">Name: A to Z</option>
+                                        <option value="name-desc">Name: Z to A</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-8">
+                                <template x-for="(product, index) in filteredProducts" :key="product.id">
+                                    <div @click="viewProduct(product)"
+                                        class="cursor-pointer bg-white rounded-lg shadow-md overflow-hidden group transition-all transform hover:shadow-xl hover:-translate-y-2 flex flex-col"
+                                        data-aos="fade-up" :data-aos-delay="index * 50">
+                                        <div class="relative h-72 overflow-hidden">
+                                            <img :src="product.images[0]" :alt="product.name"
+                                                class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">
+                                            <button @click.stop="openQuickViewModal(product)"
+                                                class="absolute bottom-4 left-1/2 -translate-x-1/2 bg-white/90 text-brand-text px-4 py-2 rounded-full text-xs font-semibold opacity-0 group-hover:opacity-100 transition-opacity duration-300 whitespace-nowrap hover:bg-white">
+                                                Quick View
+                                            </button>
+                                        </div>
+                                        <div class="p-6 flex flex-col flex-grow">
+                                            <h3 class="text-xl font-semibold mb-2 leading-tight" x-text="product.name">
+                                            </h3>
+                                            <p class="text-gray-500 text-xs mb-3 uppercase tracking-wider"
+                                                x-text="product.category"></p>
+                                            <p class="text-2xl font-serif text-brand-primary mb-4 mt-auto"
+                                                x-text="formatCurrency(product.price)"></p>
+                                            <div class="flex items-center gap-3 mt-2">
+                                                <button @click.stop="viewProduct(product)"
+                                                    class="flex-1 text-center bg-brand-primary text-white font-semibold py-2.5 rounded-full hover:bg-brand-primary-dark transition-colors">
+                                                    View Details
+                                                </button>
+                                                <button
+                                                    @click.stop="loginGate(() => { $store.cart.add(product, 1, product.options ? Object.fromEntries(product.options.map(opt => [opt.name, opt.values[0]])) : {}); showToast(`${product.name} added to cart!`, 'success') })"
+                                                    title="Add to Cart"
+                                                    class="flex-shrink-0 p-3 bg-brand-secondary text-brand-primary rounded-full hover:bg-gray-200 transition-colors">
+                                                    <i class="fa-solid fa-bag-shopping h-5 w-5"></i>
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </template>
+                                <template x-if="filteredProducts.length === 0">
+                                    <p class="text-gray-500 sm:col-span-2 xl:col-span-3 text-center py-12">No products
+                                        found matching your filters.</p>
+                                </template>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div x-show="filterMenuOpen" @keydown.escape.window="filterMenuOpen = false"
+                    x-trap.inert.noscroll="filterMenuOpen" style="display: none;">
+                    <div @click="filterMenuOpen = false" class="fixed inset-0 bg-black bg-opacity-60 z-[98]"
+                        x-show="filterMenuOpen" x-transition.opacity></div>
+
+                    <div class="fixed bottom-0 left-0 right-0 h-[80vh] bg-white rounded-t-2xl shadow-2xl z-[99] flex flex-col"
+                        x-show="filterMenuOpen" x-transition:enter="transition ease-out duration-300"
+                        x-transition:enter-start="transform translate-y-full"
+                        x-transition:enter-end="transform translate-y-0"
+                        x-transition:leave="transition ease-in duration-300"
+                        x-transition:leave-start="transform translate-y-0"
+                        x-transition:leave-end="transform translate-y-full">
+
+                        <div class="flex items-center justify-between p-5 border-b border-gray-200">
+                            <h3 class="font-serif text-2xl font-bold">Filters</h3>
+                            <button @click="filterMenuOpen = false" class="text-gray-400 hover:text-gray-600">
+                                <i class="fa-solid fa-xmark h-6 w-6"></i>
+                            </button>
+                        </div>
+
+                        <div class="p-6 overflow-y-auto flex-1">
+                            <h4 class="font-semibold mb-3 text-brand-text">Category</h4>
+                            <div class="space-y-2">
+                                <label
+                                    class="flex items-center text-gray-600 hover:text-brand-primary cursor-pointer p-2 rounded-lg"
+                                    :class="{'bg-brand-secondary text-brand-primary': activeCategory === 'All'}">
+                                    <input type="radio" x-model="activeCategory" value="All" name="category-mobile"
+                                        class="h-4 w-4 text-brand-primary border-gray-300 focus:ring-brand-primary/50">
+                                    <span class="ml-3 font-medium">All Categories</span>
+                                </label>
+                                <template x-for="category in allCategories.filter(c => c !== 'All')" :key="category">
+                                    <label
+                                        class="flex items-center text-gray-600 hover:text-brand-primary cursor-pointer p-2 rounded-lg"
+                                        :class="{'bg-brand-secondary text-brand-primary': activeCategory === category}">
+                                        <input type="radio" x-model="activeCategory" :value="category"
+                                            name="category-mobile"
+                                            class="h-4 w-4 text-brand-primary border-gray-300 focus:ring-brand-primary/50">
+                                        <span class="ml-3 font-medium" x-text="category"></span>
+                                    </label>
+                                </template>
+                            </div>
+                        </div>
+
+                        <div class="p-4 border-t border-gray-200 bg-white">
+                            <button @click="filterMenuOpen = false"
+                                class="w-full bg-brand-primary text-white font-semibold py-3 rounded-full hover:bg-brand-primary-dark transition-colors">
+                                View Results
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
             <template x-if="view === 'product' && currentProduct">
                 <div class="bg-white min-h-screen">
                     <div class="container mx-auto p-4 md:p-12 pt-28">
-                        <button @click="navigate('home')"
+                        <button @click="navigate('shop')"
                             class="flex items-center gap-2 mb-8 text-sm text-gray-500 hover:text-brand-primary transition-colors">
                             <i class="fa-solid fa-arrow-left h-4 w-4"></i> Back to Collections
                         </button>
@@ -497,7 +594,7 @@
                                 <h1 class="font-serif text-4xl md:text-5xl font-bold mb-3 leading-tight"
                                     x-text="currentProduct.name"></h1>
                                 <p class="text-3xl font-serif text-brand-primary mb-6"
-                                    x-text="`₹${currentProduct.price.toLocaleString()}`"></p>
+                                    x-text="formatCurrency(currentProduct.price)"></p>
                                 <p class="text-gray-500 text-xs mb-4 uppercase tracking-wider"
                                     x-text="currentProduct.category"></p>
 
@@ -538,7 +635,7 @@
                                 </div>
                                 <div class="space-y-3">
                                     <button
-                                        @click="$store.cart.add(currentProduct, currentProduct.quantity, selectedOptions); showToast(`${currentProduct.name} added to cart!`, 'success')"
+                                        @click="loginGate(() => { $store.cart.add(currentProduct, currentProduct.quantity, selectedOptions); showToast(`${currentProduct.name} added to cart!`, 'success') })"
                                         class="w-full flex items-center justify-center gap-2 bg-brand-primary text-white font-semibold py-3.5 px-6 rounded-full shadow-lg hover:bg-brand-primary-dark transition-colors transform hover:scale-[1.02]">
                                         <i class="fa-solid fa-bag-shopping h-5 w-5"></i> Add to Cart
                                     </button>
@@ -622,7 +719,7 @@
                                             <h3 class="text-xl font-semibold mb-2 leading-tight" x-text="product.name">
                                             </h3>
                                             <p class="text-2xl font-serif text-brand-primary mb-4 mt-auto"
-                                                x-text="`₹${product.price.toLocaleString()}`"></p>
+                                                x-text="formatCurrency(product.price)"></p>
                                             <button @click="viewProduct(product)"
                                                 class="w-full text-center bg-brand-primary text-white font-semibold py-2.5 rounded-full hover:bg-brand-primary-dark transition-colors">
                                                 View Details
@@ -637,7 +734,8 @@
             </template>
 
             <div x-show="view === 'login'" x-transition
-                class="bg-gradient-to-br from-brand-secondary via-brand-bg to-brand-secondary min-h-screen flex items-center justify-center p-4 py-16">
+                class="bg-gradient-to-br from-brand-secondary via-brand-bg to-brand-secondary min-h-screen flex items-center justify-center p-4 py-16"
+                style="display: none;">
                 <div
                     class="w-full max-w-4xl bg-white rounded-2xl shadow-xl grid md:grid-cols-2 overflow-hidden my-12 border border-gray-100">
                     <div
@@ -725,207 +823,8 @@
                 </div>
             </div>
 
-            <div x-show="view === 'admin'" x-transition class="min-h-screen bg-gray-50">
-                <div class="bg-gradient-to-r from-brand-primary to-brand-primary-dark text-white py-8 shadow-md">
-                    <div class="container mx-auto px-4 flex justify-between items-center">
-                        <h1 class="font-serif text-3xl font-bold">Admin Dashboard</h1>
-                        <button @click="navigate('home')"
-                            class="text-sm flex items-center gap-1 opacity-80 hover:opacity-100 transition-opacity">
-                            <i class="fa-solid fa-arrow-up-right-from-square h-4 w-4"></i> View Site
-                        </button>
-                    </div>
-                </div>
-                <div class="container mx-auto p-4 md:p-8">
-                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-10">
-                        <div class="bg-white p-6 rounded-lg shadow-sm border border-gray-100 flex items-center gap-4">
-                            <div class="bg-blue-100 p-3 rounded-full">
-                                <i class="fa-solid fa-box h-6 w-6 text-blue-600"></i>
-                            </div>
-                            <div>
-                                <p class="text-sm text-gray-500 font-medium">Total Products</p>
-                                <p class="text-2xl font-bold text-brand-text" x-text="products.length"></p>
-                            </div>
-                        </div>
-                        <div class="bg-white p-6 rounded-lg shadow-sm border border-gray-100 flex items-center gap-4">
-                            <div class="bg-green-100 p-3 rounded-full">
-                                <i class="fa-solid fa-cart-shopping h-6 w-6 text-green-600"></i>
-                            </div>
-                            <div>
-                                <p class="text-sm text-gray-500 font-medium">Total Orders</p>
-                                <p class="text-2xl font-bold text-brand-text">24</p>
-                            </div>
-                        </div>
-                        <div class="bg-white p-6 rounded-lg shadow-sm border border-gray-100 flex items-center gap-4">
-                            <div class="bg-yellow-100 p-3 rounded-full">
-                                <i class="fa-solid fa-dollar-sign h-6 w-6 text-yellow-600"></i>
-                            </div>
-                            <div>
-                                <p class="text-sm text-gray-500 font-medium">Total Revenue</p>
-                                <p class="text-2xl font-bold text-brand-text">₹42,450</p>
-                            </div>
-                        </div>
-                        <div class="bg-white p-6 rounded-lg shadow-sm border border-gray-100 flex items-center gap-4">
-                            <div class="bg-purple-100 p-3 rounded-full">
-                                <i class="fa-solid fa-users h-6 w-6 text-purple-600"></i>
-                            </div>
-                            <div>
-                                <p class="text-sm text-gray-500 font-medium">Total Users</p>
-                                <p class="text-2xl font-bold text-brand-text" x-text="$store.auth.users.length"></p>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="bg-white p-6 rounded-lg shadow-sm border border-gray-100">
-                        <div class="flex flex-col sm:flex-row justify-between sm:items-center mb-6 gap-4">
-                            <h2 class="text-2xl font-semibold text-brand-text">Product Management</h2>
-                            <button @click="openProductModal()"
-                                class="bg-brand-primary text-white font-semibold py-2 px-5 rounded-lg flex items-center gap-2 hover:bg-brand-primary-dark transition-colors whitespace-nowrap text-sm">
-                                <i class="fa-solid fa-plus-circle h-5 w-5"></i> Add New Product
-                            </button>
-                        </div>
-                        <div class="overflow-x-auto">
-                            <table class="w-full text-left text-sm">
-                                <thead>
-                                    <tr class="border-b bg-gray-50 text-xs text-gray-500 uppercase tracking-wider">
-                                        <th class="p-3 font-medium">Product</th>
-                                        <th class="p-3 font-medium">Price</th>
-                                        <th class="p-3 font-medium">Category</th>
-                                        <th class="p-3 font-medium">Status</th>
-                                        <th class="p-3 font-medium text-right">Actions</th>
-                                    </tr>
-                                </thead>
-                                <tbody class="divide-y divide-gray-100">
-                                    <template x-for="product in products" :key="product.id">
-                                        <tr class="hover:bg-gray-50">
-                                            <td class="p-3 flex items-center gap-3">
-                                                <img :src="product.images[0]"
-                                                    class="h-10 w-10 object-cover rounded-md flex-shrink-0">
-                                                <span class="font-medium text-brand-text" x-text="product.name"></span>
-                                            </td>
-                                            <td class="p-3" x-text="`₹${product.price}`"></td>
-                                            <td class="p-3 text-gray-600" x-text="product.category"></td>
-                                            <td class="p-3">
-                                                <span class="px-2.5 py-0.5 text-xs font-medium rounded-full" :class="{
-                                                        'bg-green-100 text-green-800': product.status === 'In Stock',
-                                                        'bg-yellow-100 text-yellow-800': product.status === 'Low Stock',
-                                                        'bg-red-100 text-red-800': product.status === 'Out of Stock'
-                                                        }" x-text="product.status"></span>
-                                            </td>
-                                            <td class="p-3 text-right">
-                                                <button @click="openProductModal(product)"
-                                                    class="p-2 text-blue-600 hover:bg-blue-50 rounded-md transition-colors">
-                                                    <i class="fa-solid fa-pencil h-4 w-4"></i></button>
-                                                <button @click="deleteProduct(product.id)"
-                                                    class="p-2 text-red-600 hover:bg-red-50 rounded-md transition-colors">
-                                                    <i class="fa-solid fa-trash-can h-4 w-4"></i></button>
-                                            </td>
-                                        </tr>
-                                    </template>
-                                </tbody>
-                            </table>
-                        </div>
-                        <template x-if="products.length === 0">
-                            <p class="text-center text-gray-500 py-8">No products found. Add one!</p>
-                        </template>
-                    </div>
-                </div>
-            </div>
-
-
-            <div x-show="view === 'shop'" class="min-h-screen bg-white pt-20">
-                <div class="container mx-auto p-4 md:p-8">
-                    <div class="pt-12 text-center mb-12">
-                        <h1 class="font-serif text-5xl font-bold">Shop All Collections</h1>
-                        <p class="text-lg text-gray-600 mt-2">Find the perfect piece for your celebration.</p>
-                    </div>
-
-                    <div class="grid grid-cols-1 lg:grid-cols-4 gap-8">
-                        <aside
-                            class="col-span-1 bg-brand-bg/50 p-6 rounded-lg shadow-sm border border-gray-200 h-min lg:sticky top-28">
-                            <h3 class="font-serif text-2xl font-semibold mb-6 border-b pb-3">Filters</h3>
-
-                            <div class="mb-6">
-                                <h4 class="font-semibold mb-3 text-brand-text">Category</h4>
-                                <div class="space-y-2">
-                                    <template x-for="category in allCategories" :key="category">
-                                        <label
-                                            class="flex items-center text-sm text-gray-600 hover:text-brand-primary cursor-pointer">
-                                            <input type="radio" x-model="activeCategory" :value="category"
-                                                name="category"
-                                                class="h-4 w-4 text-brand-primary border-gray-300 focus:ring-brand-primary/50">
-                                            <span class="ml-3" x-text="category"></span>
-                                        </label>
-                                    </template>
-                                    <label
-                                        class="flex items-center text-sm text-gray-600 hover:text-brand-primary cursor-pointer">
-                                        <input type="radio" x-model="activeCategory" value="All" name="category"
-                                            class="h-4 w-4 text-brand-primary border-gray-300 focus:ring-brand-primary/50">
-                                        <span class="ml-3">All Categories</span>
-                                    </label>
-                                </div>
-                            </div>
-
-                            <div>
-                                <h4 class="font-semibold mb-3 text-brand-text">Sort By</h4>
-                                <select x-model="sortBy"
-                                    class="w-full bg-white border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-brand-primary/50 focus:border-brand-primary transition p-3 text-sm">
-                                    <option value="default">Default</option>
-                                    <option value="price-asc">Price: Low to High</option>
-                                    <option value="price-desc">Price: High to Low</option>
-                                    <option value="name-asc">Name: A to Z</option>
-                                    <option value="name-desc">Name: Z to A</option>
-                                </select>
-                            </div>
-                        </aside>
-
-                        <div class="col-span-1 lg:col-span-3">
-                            <div class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-8">
-                                <template x-for="(product, index) in filteredProducts" :key="product.id">
-                                    <div class="bg-white rounded-lg shadow-md overflow-hidden group transition-all transform hover:shadow-xl hover:-translate-y-2 flex flex-col"
-                                        data-aos="fade-up" :data-aos-delay="index * 50">
-                                        <div class="relative h-72 overflow-hidden">
-                                            <img :src="product.images[0]" :alt="product.name"
-                                                class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">
-                                            <button @click.stop="viewProduct(product)"
-                                                class="absolute bottom-4 left-1/2 -translate-x-1/2 bg-white/90 text-brand-text px-4 py-2 rounded-full text-xs font-semibold opacity-0 group-hover:opacity-100 transition-opacity duration-300 whitespace-nowrap hover:bg-white">
-                                                Quick View
-                                            </button>
-                                        </div>
-                                        <div class="p-6 flex flex-col flex-grow">
-                                            <h3 class="text-xl font-semibold mb-2 leading-tight" x-text="product.name">
-                                            </h3>
-                                            <p class="text-gray-500 text-xs mb-3 uppercase tracking-wider"
-                                                x-text="product.category"></p>
-                                            <p class="text-2xl font-serif text-brand-primary mb-4 mt-auto"
-                                                x-text="formatCurrency(product.price)"></p>
-                                            <div class="flex items-center gap-3 mt-2">
-                                                <button @click="viewProduct(product)"
-                                                    class="flex-1 text-center bg-brand-primary text-white font-semibold py-2.5 rounded-full hover:bg-brand-primary-dark transition-colors">
-                                                    View Details
-                                                </button>
-                                                <button
-                                                    @click.stop="$store.cart.add(product, 1, product.options ? Object.fromEntries(product.options.map(opt => [opt.name, opt.values[0]])) : {}); showToast(`${product.name} added to cart!`, 'success')"
-                                                    title="Add to Cart"
-                                                    class="flex-shrink-0 p-3 bg-brand-secondary text-brand-primary rounded-full hover:bg-gray-200 transition-colors">
-                                                    <i class="fa-solid fa-bag-shopping h-5 w-5"></i>
-                                                </button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </template>
-                                <template x-if="filteredProducts.length === 0">
-                                    <p class="text-gray-500 sm:col-span-2 xl:col-span-3 text-center py-12">No products
-                                        found matching your filters.</p>
-                                </template>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-
-
-            <div x-show="view === 'account'" x-transition class="min-h-screen bg-brand-secondary/50 pt-28 pb-16">
+            <div x-show="view === 'account'" x-transition class="min-h-screen bg-brand-secondary/50 pt-28 pb-16"
+                style="display: none;">
                 <div class="container mx-auto p-4 md:p-8">
 
                     <template x-if="!$store.auth.user">
@@ -990,7 +889,8 @@
                                                 </div>
                                                 <div>
                                                     <p class="font-semibold">Total: <span
-                                                            class="font-normal text-gray-600">₹4,800.00</span></p>
+                                                            class="font-normal text-gray-600"
+                                                            x-text="formatCurrency(4800)"></span></p>
                                                     <p class="font-semibold">Status: <span
                                                             class="font-medium text-green-600">Delivered</span></p>
                                                 </div>
@@ -1016,7 +916,8 @@
                                                 </div>
                                                 <div>
                                                     <p class="font-semibold">Total: <span
-                                                            class="font-normal text-gray-600">₹2,000.00</span></p>
+                                                            class="font-normal text-gray-600"
+                                                            x-text="formatCurrency(2000)"></span></p>
                                                     <p class="font-semibold">Status: <span
                                                             class="font-medium text-blue-600">Shipped</span></p>
                                                 </div>
@@ -1070,7 +971,7 @@
                                                     <label class="block text-sm font-medium mb-1 text-gray-700">Email
                                                         Address</label>
                                                     <input type="email" :value="$store.auth.user.email"
-                                                        class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-1 focus:ring-brand-primary focus:border-brand-primary text-sm"
+                                                        class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-1 focus:ring-brand-primary focus:border-brand-primary text-sm bg-gray-100 text-gray-500 cursor-not-allowed"
                                                         disabled>
                                                 </div>
                                             </div>
@@ -1100,10 +1001,7 @@
                 </div>
             </div>
 
-
-
-
-            <div x-show="view === 'checkout'" class="min-h-screen bg-white pt-28 pb-16">
+            <div x-show="view === 'checkout'" class="min-h-screen bg-white pt-28 pb-16" style="display: none;">
                 <div class="container mx-auto p-4 md:p-8">
 
                     <template x-if="$store.cart.items.length === 0">
@@ -1181,8 +1079,8 @@
                                         <section>
                                             <h2 class="font-serif text-2xl font-semibold mb-5">Payment Details</h2>
                                             <div class="border border-gray-200 rounded-lg p-5 bg-gray-50">
-                                                <p class="text-gray-600 text-sm">This is a demo. This
-                                                    would be a secure payment form.</p>
+                                                <p class="text-gray-600 text-sm">This is a demo. In a real site, this
+                                                    would be a secure payment form (e.g., Stripe or Razorpay).</p>
                                                 <div
                                                     class="mt-4 p-4 bg-white rounded-lg border border-gray-300 font-mono text-gray-400">
                                                     [ Mock Card Element ]</div>
@@ -1245,14 +1143,202 @@
                 </div>
             </div>
 
+            <div x-show="view === 'admin'" x-transition class="min-h-screen bg-gray-50" style="display: none;">
+                <div class="bg-gradient-to-r from-brand-primary to-brand-primary-dark text-white py-8 shadow-md">
+                    <div class="container mx-auto px-4 flex justify-between items-center">
+                        <h1 class="font-serif text-3xl font-bold">Admin Dashboard</h1>
+                        <button @click="navigate('home')"
+                            class="text-sm flex items-center gap-1 opacity-80 hover:opacity-100 transition-opacity">
+                            <i class="fa-solid fa-arrow-up-right-from-square h-4 w-4"></i> View Site
+                        </button>
+                    </div>
+                </div>
+                <div class="container mx-auto p-4 md:p-8">
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-10">
+                        <div class="bg-white p-6 rounded-lg shadow-sm border border-gray-100 flex items-center gap-4">
+                            <div class="bg-blue-100 p-3 rounded-full">
+                                <i class="fa-solid fa-box h-6 w-6 text-blue-600"></i>
+                            </div>
+                            <div>
+                                <p class="text-sm text-gray-500 font-medium">Total Products</p>
+                                <p class="text-2xl font-bold text-brand-text" x-text="products.length"></p>
+                            </div>
+                        </div>
+                        <div class="bg-white p-6 rounded-lg shadow-sm border border-gray-100 flex items-center gap-4">
+                            <div class="bg-green-100 p-3 rounded-full">
+                                <i class="fa-solid fa-cart-shopping h-6 w-6 text-green-600"></i>
+                            </div>
+                            <div>
+                                <p class="text-sm text-gray-500 font-medium">Total Orders</p>
+                                <p class="text-2xl font-bold text-brand-text">3</p>
+                            </div>
+                        </div>
+                        <div class="bg-white p-6 rounded-lg shadow-sm border border-gray-100 flex items-center gap-4">
+                            <div class="bg-yellow-100 p-3 rounded-full">
+                                <i class="fa-solid fa-dollar-sign h-6 w-6 text-yellow-600"></i>
+                            </div>
+                            <div>
+                                <p class="text-sm text-gray-500 font-medium">Total Revenue</p>
+                                <p class="text-2xl font-bold text-brand-text" x-text="formatCurrency(16300)"></p>
+                            </div>
+                        </div>
+                        <div class="bg-white p-6 rounded-lg shadow-sm border border-gray-100 flex items-center gap-4">
+                            <div class="bg-purple-100 p-3 rounded-full">
+                                <i class="fa-solid fa-users h-6 w-6 text-purple-600"></i>
+                            </div>
+                            <div>
+                                <p class="text-sm text-gray-500 font-medium">Total Users</p>
+                                <p class="text-2xl font-bold text-brand-text" x-text="$store.auth.users.length"></p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="bg-white p-6 rounded-lg shadow-sm border border-gray-100 mb-10">
+                        <div class="flex flex-col sm:flex-row justify-between sm:items-center mb-6 gap-4">
+                            <h2 class="text-2xl font-semibold text-brand-text">Product Management</h2>
+                            <button @click="openProductModal()"
+                                class="bg-brand-primary text-white font-semibold py-2 px-5 rounded-lg flex items-center gap-2 hover:bg-brand-primary-dark transition-colors whitespace-nowrap text-sm">
+                                <i class="fa-solid fa-plus-circle h-5 w-5"></i> Add New Product
+                            </button>
+                        </div>
+                        <div class="overflow-x-auto">
+                            <table class="w-full text-left text-sm">
+                                <thead>
+                                    <tr class="border-b bg-gray-50 text-xs text-gray-500 uppercase tracking-wider">
+                                        <th class="p-3 font-medium">Product</th>
+                                        <th class="p-3 font-medium">Price</th>
+                                        <th class="p-3 font-medium">Category</th>
+                                        <th class="p-3 font-medium">Status</th>
+                                        <th class="p-3 font-medium text-right">Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody class="divide-y divide-gray-100">
+                                    <template x-for="product in products" :key="product.id">
+                                        <tr class="hover:bg-gray-50">
+                                            <td class="p-3 flex items-center gap-3">
+                                                <img :src="product.images[0]"
+                                                    class="h-10 w-10 object-cover rounded-md flex-shrink-0">
+                                                <span class="font-medium text-brand-text" x-text="product.name"></span>
+                                            </td>
+                                            <td class="p-3" x-text="formatCurrency(product.price)"></td>
+                                            <td class="p-3 text-gray-600" x-text="product.category"></td>
+                                            <td class="p-3">
+                                                <span class="px-2.5 py-0.5 text-xs font-medium rounded-full" :class="{
+                                                        'bg-green-100 text-green-800': product.status === 'In Stock',
+                                                        'bg-yellow-100 text-yellow-800': product.status === 'Low Stock',
+                                                        'bg-red-100 text-red-800': product.status === 'Out of Stock'
+                                                        }" x-text="product.status"></span>
+                                            </td>
+                                            <td class="p-3 text-right">
+                                                <button @click="openProductModal(product)"
+                                                    class="p-2 text-blue-600 hover:bg-blue-50 rounded-md transition-colors">
+                                                    <i class="fa-solid fa-pencil h-4 w-4"></i></button>
+                                                <button @click="deleteProduct(product.id)"
+                                                    class="p-2 text-red-600 hover:bg-red-50 rounded-md transition-colors">
+                                                    <i class="fa-solid fa-trash-can h-4 w-4"></i></button>
+                                            </td>
+                                        </tr>
+                                    </template>
+                                </tbody>
+                            </table>
+                        </div>
+                        <template x-if="products.length === 0">
+                            <p class="text-center text-gray-500 py-8">No products found. Add one!</p>
+                        </template>
+                    </div>
+
+                    <div class="bg-white p-6 rounded-lg shadow-sm border border-gray-100">
+                        <div class="flex flex-col sm:flex-row justify-between sm:items-center mb-6 gap-4">
+                            <h2 class="text-2xl font-semibold text-brand-text">Order Management</h2>
+                        </div>
+                        <div class="overflow-x-auto">
+                            <table class="w-full text-left text-sm">
+                                <thead>
+                                    <tr class="border-b bg-gray-50 text-xs text-gray-500 uppercase tracking-wider">
+                                        <th class="p-3 font-medium">Order ID</th>
+                                        <th class="p-3 font-medium">Customer</th>
+                                        <th class="p-3 font-medium">Date</th>
+                                        <th class="p-3 font-medium">Total</th>
+                                        <th class="p-3 font-medium">Status</th>
+                                        <th class="p-3 font-medium text-right">Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody class="divide-y divide-gray-100">
+                                    <tr class="hover:bg-gray-50">
+                                        <td class="p-3 font-medium text-brand-text">#1024</td>
+                                        <td class="p-3">Demo User (demo@demo.com)</td>
+                                        <td class="p-3 text-gray-600">Oct 15, 2025</td>
+                                        <td class="p-3" x-text="formatCurrency(4800)"></td>
+                                        <td class="p-3">
+                                            <select
+                                                class="text-xs border-gray-300 rounded-md shadow-sm focus:ring-brand-primary/50 focus:border-brand-primary">
+                                                <option value="Delivered" selected>Delivered</option>
+                                                <option value="Shipped">Shipped</option>
+                                                <option value="Pending">Pending</option>
+                                                <option value="Cancelled">Cancelled</option>
+                                            </select>
+                                        </td>
+                                        <td class="p-3 text-right">
+                                            <button
+                                                class="p-2 text-blue-600 hover:bg-blue-50 rounded-md transition-colors"><i
+                                                    class="fa-solid fa-eye h-4 w-4"></i></button>
+                                        </td>
+                                    </tr>
+                                    <tr class="hover:bg-gray-50">
+                                        <td class="p-3 font-medium text-brand-text">#1023</td>
+                                        <td class="p-3">Admin User (admin@craftingsign.com)</td>
+                                        <td class="p-3 text-gray-600">Oct 12, 2025</td>
+                                        <td class="p-3" x-text="formatCurrency(2000)"></td>
+                                        <td class="p-3">
+                                            <select
+                                                class="text-xs border-gray-300 rounded-md shadow-sm focus:ring-brand-primary/50 focus:border-brand-primary">
+                                                <option value="Delivered">Delivered</option>
+                                                <option value="Shipped" selected>Shipped</option>
+                                                <option value="Pending">Pending</option>
+                                                <option value="Cancelled">Cancelled</option>
+                                            </select>
+                                        </td>
+                                        <td class="p-3 text-right">
+                                            <button
+                                                class="p-2 text-blue-600 hover:bg-blue-50 rounded-md transition-colors"><i
+                                                    class="fa-solid fa-eye h-4 w-4"></i></button>
+                                        </td>
+                                    </tr>
+                                    <tr class="hover:bg-gray-50">
+                                        <td class="p-3 font-medium text-brand-text">#1022</td>
+                                        <td class="p-3">Demo User (demo@demo.com)</td>
+                                        <td class="p-3 text-gray-600">Oct 10, 2025</td>
+                                        <td class="p-3" x-text="formatCurrency(9500)"></td>
+                                        <td class="p-3">
+                                            <select
+                                                class="text-xs border-gray-300 rounded-md shadow-sm focus:ring-brand-primary/50 focus:border-brand-primary">
+                                                <option value="Delivered">Delivered</option>
+                                                <option value="Shipped">Shipped</option>
+                                                <option value="Pending" selected>Pending</option>
+                                                <option value="Cancelled">Cancelled</option>
+                                            </select>
+                                        </td>
+                                        <td class="p-3 text-right">
+                                            <button
+                                                class="p-2 text-blue-600 hover:bg-blue-50 rounded-md transition-colors"><i
+                                                    class="fa-solid fa-eye h-4 w-4"></i></button>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </main>
 
-
-        <div x-show="cartOpen" @keydown.escape.window="cartOpen = false" x-trap.inert.noscroll="cartOpen">
+        <div x-show="cartOpen" @keydown.escape.window="cartOpen = false" x-trap.inert.noscroll="cartOpen"
+            style="display: none;">
             <div @click="cartOpen = false" class="fixed inset-0 bg-black bg-opacity-60 z-[99]" x-show="cartOpen"
                 x-transition:enter="transition-opacity ease-out duration-300" x-transition:enter-start="opacity-0"
                 x-transition:enter-end="opacity-100" x-transition:leave="transition-opacity ease-in duration-300"
                 x-transition:leave-start="opacity-100" x-transition:leave-end="opacity-0"></div>
+
             <div class="fixed top-0 right-0 h-full w-full max-w-lg bg-white z-[100] shadow-2xl flex flex-col border-l border-gray-200"
                 x-show="cartOpen" x-transition:enter="transition ease-out duration-300"
                 x-transition:enter-start="transform translate-x-full" x-transition:enter-end="transform translate-x-0"
@@ -1264,12 +1350,13 @@
                     <button @click="cartOpen = false" class="text-gray-500 hover:text-brand-primary transition-colors">
                         <i class="fa-solid fa-xmark h-6 w-6"></i></button>
                 </div>
+
                 <div class="flex-1 overflow-y-auto p-6">
                     <template x-if="$store.cart.items.length === 0">
                         <div class="text-center text-gray-500 mt-20 flex flex-col items-center">
                             <i class="fa-solid fa-bag-shopping h-20 w-20 mx-auto mb-4 text-gray-300"></i>
                             <p class="font-medium">Your cart is empty.</p>
-                            <button @click="cartOpen = false; scrollTo('products')"
+                            <button @click="cartOpen = false; navigate('shop')"
                                 class="mt-4 text-sm text-brand-primary font-medium hover:underline">Continue
                                 Shopping</button>
                         </div>
@@ -1291,7 +1378,7 @@
                                         </div>
                                     </template>
                                     <p class="text-sm text-brand-primary font-medium my-3"
-                                        x-text="`₹${item.price.toLocaleString()}`"></p>
+                                        x-text="formatCurrency(item.price)"></p>
                                     <div class="flex items-center justify-between">
                                         <div
                                             class="flex items-center border border-gray-200 rounded-full w-min text-sm">
@@ -1311,12 +1398,13 @@
                         </template>
                     </div>
                 </div>
+
                 <div x-show="$store.cart.items.length > 0" class="p-6 border-t border-gray-200 bg-gray-50">
                     <div class="flex justify-between font-semibold text-lg mb-4 text-brand-text">
                         <span>Subtotal</span>
-                        <span x-text="`₹${$store.cart.total.toLocaleString()}`"></span>
+                        <span x-text="formatCurrency($store.cart.total)"></span>
                     </div>
-                    <button @click="navigate('checkout'); cartOpen = false"
+                    <button @click="loginGate(() => { navigate('checkout'); cartOpen = false })"
                         class="w-full bg-brand-primary text-white font-semibold py-3 rounded-full hover:bg-brand-primary-dark transition-colors shadow-md">Proceed
                         to Checkout</button>
                     <p class="text-xs text-gray-500 text-center mt-3">Shipping & taxes calculated at checkout.</p>
@@ -1325,7 +1413,7 @@
         </div>
 
         <div x-show="productModal.open" @keydown.escape.window="productModal.open = false"
-            x-trap.inert.noscroll="productModal.open">
+            x-trap.inert.noscroll="productModal.open" style="display: none;">
             <div @click="productModal.open = false" class="fixed inset-0 bg-black bg-opacity-60 z-[99]"
                 x-show="productModal.open" x-transition.opacity></div>
             <div class="fixed inset-0 z-[100] flex items-center justify-center p-4">
@@ -1403,6 +1491,113 @@
         </div>
 
 
+        <div x-show="quickViewModal.open" @keydown.escape.window="quickViewModal.open = false"
+            x-trap.inert.noscroll="quickViewModal.open" style="display: none;">
+            <div @click="quickViewModal.open = false" class="fixed inset-0 bg-black bg-opacity-60 z-[99]"
+                x-show="quickViewModal.open" x-transition.opacity></div>
+
+            <div class="fixed inset-0 z-[100] flex items-center justify-center p-4">
+                <div class="relative bg-white rounded-lg shadow-2xl w-full max-w-4xl max-h-[90vh] flex flex-col md:flex-row border border-gray-200 overflow-y-auto"
+                    @click.stop x-show="quickViewModal.open" x-transition:enter="transition ease-out duration-300"
+                    x-transition:enter-start="opacity-0 scale-95" x-transition:enter-end="opacity-100 scale-100"
+                    x-transition:leave="transition ease-in duration-200"
+                    x-transition:leave-start="opacity-100 scale-100" x-transition:leave-end="opacity-0 scale-95">
+
+                    <button @click="quickViewModal.open = false"
+                        class="absolute top-4 right-4 z-10 text-gray-400 hover:text-gray-600 transition-colors">
+                        <i class="fa-solid fa-xmark h-6 w-6"></i>
+                    </button>
+
+                    <div
+                        class="w-full md:w-1/2 flex-shrink-0 bg-gray-100 rounded-t-lg md:rounded-l-lg md:rounded-t-none overflow-hidden">
+                        <img :src="quickViewModal.product ? quickViewModal.product.images[0] : ''"
+                            :alt="quickViewModal.product ? quickViewModal.product.name : 'Product'"
+                            class="w-full h-full object-cover">
+                    </div>
+
+                    <div class="w-full md:w-1/2 p-6 md:p-8 flex flex-col overflow-y-auto">
+                        <h2 class="font-serif text-3xl font-bold mb-2"
+                            x-text="quickViewModal.product ? quickViewModal.product.name : 'Loading...'"></h2>
+                        <p class="text-2xl font-serif text-brand-primary mb-4"
+                            x-text="quickViewModal.product ? formatCurrency(quickViewModal.product.price) : ''"></p>
+
+                        <p class="text-gray-600 text-sm mb-6"
+                            x-text="quickViewModal.product ? quickViewModal.product.description.substring(0, 150) + '...' : ''">
+                        </p>
+
+                        <div class="space-y-4 mt-auto">
+                            <button
+                                @click="quickViewModal.product && loginGate(() => { $store.cart.add(quickViewModal.product, 1, quickViewModal.product.options ? Object.fromEntries(quickViewModal.product.options.map(opt => [opt.name, opt.values[0]])) : {}); showToast(`${quickViewModal.product.name} added to cart!`, 'success'); quickViewModal.open = false; })"
+                                class="w-full flex items-center justify-center gap-2 bg-brand-primary text-white font-semibold py-3 px-6 rounded-full shadow-lg hover:bg-brand-primary-dark transition-colors">
+                                <i class="fa-solid fa-bag-shopping h-5 w-5"></i> Add to Cart
+                            </button>
+                            <button
+                                @click="quickViewModal.product && viewProduct(quickViewModal.product); quickViewModal.open = false"
+                                class="w-full text-center bg-brand-secondary text-brand-primary font-semibold py-3 px-6 rounded-full hover:bg-gray-200 transition-colors">
+                                View Full Details
+                            </button>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+        <div x-show="showLoginModal" @keydown.escape.window="showLoginModal = false"
+            x-trap.inert.noscroll="showLoginModal" style="display: none;">
+            <div @click="showLoginModal = false" class="fixed inset-0 bg-black bg-opacity-60 z-[99]"
+                x-show="showLoginModal" x-transition.opacity></div>
+
+            <div class="fixed inset-0 z-[100] flex items-center justify-center p-4">
+                <div class="bg-white rounded-lg shadow-2xl w-full max-w-md border border-gray-200" @click.stop
+                    x-show="showLoginModal" x-transition:enter="transition ease-out duration-300"
+                    x-transition:enter-start="opacity-0 scale-95" x-transition:enter-end="opacity-100 scale-100"
+                    x-transition:leave="transition ease-in duration-200"
+                    x-transition:leave-start="opacity-100 scale-100" x-transition:leave-end="opacity-0 scale-95">
+
+                    <div class="p-6 md:p-8">
+                        <div class="flex justify-between items-center mb-6">
+                            <h2 class="font-serif text-3xl font-bold text-brand-text">Login Required</h2>
+                            <button @click="showLoginModal = false"
+                                class="text-gray-400 hover:text-gray-600 transition-colors">
+                                <i class="fa-solid fa-xmark h-5 w-5"></i>
+                            </button>
+                        </div>
+                        <p class="text-gray-600 mb-6 text-sm">You must be logged in to add items to your cart or check
+                            out. Please log in to continue.</p>
+
+                        <form @submit.prevent="$store.auth.login(loginForm.email, loginForm.password)"
+                            class="space-y-5">
+                            <div class="relative">
+                                <label for="modal-login-email"
+                                    class="absolute -top-2 left-3 bg-white px-1 text-xs text-gray-500">Email
+                                    Address</label>
+                                <input id="modal-login-email" type="email" x-model="loginForm.email" required
+                                    placeholder="you@example.com"
+                                    class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-brand-primary/50 focus:border-brand-primary transition pt-4">
+                            </div>
+                            <div class="relative">
+                                <label for="modal-login-password"
+                                    class="absolute -top-2 left-3 bg-white px-1 text-xs text-gray-500">Password</label>
+                                <input id="modal-login-password" type="password" x-model="loginForm.password" required
+                                    placeholder="••••••••"
+                                    class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-brand-primary/50 focus:border-brand-primary transition pt-4">
+                            </div>
+                            <button type="submit"
+                                class="w-full bg-brand-primary text-white font-semibold py-3 rounded-full hover:bg-brand-primary-dark transform hover:scale-[1.02] transition-all shadow-md">Sign
+                                In</button>
+                            <p class="text-center text-sm text-gray-600">
+                                Don't have an account?
+                                <a href="#" @click.prevent="navigate('login'); showLoginModal = false"
+                                    class="font-medium text-brand-primary hover:underline">Register here</a>
+                            </p>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
         <footer class="bg-white text-brand-text mt-20 border-t border-gray-100">
             <div class="py-16 bg-brand-secondary">
                 <div class="container mx-auto px-4 text-center" data-aos="fade-up">
@@ -1428,9 +1623,10 @@
                             your personality and style.</p>
                         <address class="text-gray-500 text-sm not-italic leading-relaxed mb-6">
                             PLOT NO.121 KHANCHAN VIHAR,<br>
-                            BENAR ROAD, NEAR BENAR
-                            RAILWAY STATION, JAIPUR,<br>
-                            RAJASTHAN, 302012
+                            BENAR ROAD, JAIPUR, RAJASTHAN, 302012<br>
+                            <a href="tel:+919079199046" class="mt-2 block hover:text-brand-primary">+91 9079199046</a>
+                            <a href="mailto:contact@craftingsign.com"
+                                class="block hover:text-brand-primary">contact@craftingsign.com</a>
                         </address>
                         <div class="flex space-x-4">
                             <a href="#" class="text-gray-400 hover:text-brand-primary transition-colors"><i
@@ -1446,28 +1642,34 @@
                         <ul class="space-y-3 text-sm">
                             <li><a href="#" @click.prevent="scrollTo('about')"
                                     class="text-gray-500 hover:text-brand-primary transition-colors">About Us</a></li>
-                            <li><a href="#" @click.prevent="scrollTo('products')"
+                            <li><a href="#" @click.prevent="navigate('shop')"
                                     class="text-gray-500 hover:text-brand-primary transition-colors">Collections</a>
                             </li>
                             <li><a href="#" @click.prevent="scrollTo('contact')"
                                     class="text-gray-500 hover:text-brand-primary transition-colors">Custom Orders</a>
                             </li>
-                            <li><a href="#" class="text-gray-500 hover:text-brand-primary transition-colors">FAQs</a>
+                            <li><a href="#" @click.prevent="navigate('account')"
+                                    class="text-gray-500 hover:text-brand-primary transition-colors">My Account</a>
                             </li>
                         </ul>
                     </div>
                     <div>
                         <h3 class="font-semibold text-lg mb-4 tracking-wide">Shop</h3>
                         <ul class="space-y-3 text-sm">
-                            <li><a href="#" class="text-gray-500 hover:text-brand-primary transition-colors">Welcome
+                            <li><a href="#" @click.prevent="activeCategory = 'Welcome Sign'; navigate('shop')"
+                                    class="text-gray-500 hover:text-brand-primary transition-colors">Welcome
                                     Signs</a></li>
-                            <li><a href="#" class="text-gray-500 hover:text-brand-primary transition-colors">Seating
+                            <li><a href="#" @click.prevent="activeCategory = 'Seating Chart'; navigate('shop')"
+                                    class="text-gray-500 hover:text-brand-primary transition-colors">Seating
                                     Charts</a></li>
-                            <li><a href="#" class="text-gray-500 hover:text-brand-primary transition-colors">Baby
+                            <li><a href="#" @click.prevent="activeCategory = 'Baby Shower'; navigate('shop')"
+                                    class="text-gray-500 hover:text-brand-primary transition-colors">Baby
                                     Shower Signs</a></li>
-                            <li><a href="#" class="text-gray-500 hover:text-brand-primary transition-colors">Menu
+                            <li><a href="#" @click.prevent="activeCategory = 'Menu Cards'; navigate('shop')"
+                                    class="text-gray-500 hover:text-brand-primary transition-colors">Menu
                                     Cards</a></li>
-                            <li><a href="#" class="text-gray-500 hover:text-brand-primary transition-colors">Place
+                            <li><a href="#" @click.prevent="activeCategory = 'Place Cards'; navigate('shop')"
+                                    class="text-gray-500 hover:text-brand-primary transition-colors">Place
                                     Cards</a></li>
                         </ul>
                     </div>
@@ -1507,144 +1709,100 @@
     <script src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
 
     <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
-
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
 
 
     <script>
-        // --- NEW Mock Data (Richer) ---
         const MOCK_PRODUCTS = [
             {
                 id: 1, name: 'Minimalist Acrylic Welcome Sign', price: 4800,
-                images: [
-                    'https://picsum.photos/600/600?random=1&category=wedding',
-                    'https://picsum.photos/600/600?random=2&category=wedding',
-                    'https://picsum.photos/600/600?random=3&category=wedding'
-                ],
+                images: ['https://picsum.photos/600/600?random=1&category=wedding', 'https://picsum.photos/600/600?random=2&category=wedding', 'https://picsum.photos/600/600?random=3&category=wedding'],
                 category: 'Welcome Sign',
                 description: 'A beautiful, modern acrylic welcome sign to greet your guests. Features 3D lettering for a stunning effect. Fully customizable with your names and event date. Stand not included.',
                 status: 'In Stock',
-                options: [
-                    { name: 'Size', values: ['18x24"', '24x36"'] },
-                    { name: 'Lettering Color', values: ['White', 'Black', 'Gold', 'Silver'] }
-                ],
-                reviews: [
-                    { rating: 5, user: 'Priya S.', comment: 'Absolutely stunning! It was the perfect entrance piece for our wedding.' },
-                    { rating: 5, user: 'Mark T.', comment: 'High quality and arrived securely packaged. Highly recommend.' }
-                ]
+                options: [{ name: 'Size', values: ['18x24"', '24x36"'] }, { name: 'Lettering Color', values: ['White', 'Black', 'Gold', 'Silver'] }],
+                reviews: [{ rating: 5, user: 'Priya S.', comment: 'Absolutely stunning! It was the perfect entrance piece for our wedding.' }]
             },
             {
                 id: 2, name: 'Elegant Frosted Seating Chart', price: 9500,
-                images: [
-                    'https://picsum.photos/600/600?random=4&category=event',
-                    'https://picsum.photos/600/600?random=5&category=event'
-                ],
+                images: ['https://picsum.photos/600/600?random=4&category=event', 'https://picsum.photos/600/600?random=5&category=event'],
                 category: 'Seating Chart',
                 description: 'A large, frosted acrylic seating chart that adds a touch of class to any reception. We will work with you to finalize your guest list and layout. Can accommodate up to 200 guests.',
                 status: 'In Stock',
-                options: [
-                    { name: 'Style', values: ['Frosted', 'Clear', 'Painted Back'] },
-                    { name: 'Orientation', values: ['Portrait', 'Landscape'] }
-                ],
-                reviews: [
-                    { rating: 5, user: 'Emily R.', comment: 'So elegant. We received so many compliments on it.' }
-                ]
+                options: [{ name: 'Style', values: ['Frosted', 'Clear', 'Painted Back'] }, { name: 'Orientation', values: ['Portrait', 'Landscape'] }],
+                reviews: [{ rating: 5, user: 'Emily R.', comment: 'So elegant. We received so many compliments on it.' }]
             },
             {
                 id: 3, name: '"Oh Baby" Baby Shower Sign', price: 3500,
-                images: [
-                    'https://picsum.photos/600/600?random=6&category=party',
-                    'https://picsum.photos/600/600?random=7&category=party'
-                ],
+                images: ['https://picsum.photos/600/600?random=6&category=party', 'https://picsum.photos/600/600?random=7&category=party'],
                 category: 'Baby Shower',
                 description: 'The perfect backdrop piece for a baby shower. This "Oh Baby" sign is crafted from premium acrylic with beautiful script lettering. Can be customized with the baby\'s name or due date.',
                 status: 'In Stock',
-                options: [
-                    { name: 'Color Theme', values: ['Neutral (Beige/White)', 'Baby Blue', 'Baby Pink', 'Sage Green'] }
-                ],
-                reviews: [
-                    { rating: 5, user: 'David L.', comment: 'A true work of art. It was the centerpiece of our decor.' }
-                ]
+                options: [{ name: 'Color Theme', values: ['Neutral (Beige/White)', 'Baby Blue', 'Baby Pink', 'Sage Green'] }],
+                reviews: [{ rating: 5, user: 'David L.', comment: 'A true work of art. It was the centerpiece of our decor.' }]
             },
             {
                 id: 4, name: 'Modern Birthday Welcome Sign', price: 3200,
-                images: [
-                    'https://picsum.photos/600/600?random=8&category=birthday',
-                    'https://picsum.photos/600/600?random=9&category=birthday'
-                ],
+                images: ['https://picsum.photos/600/600?random=8&category=birthday', 'https://picsum.photos/600/600?random=9&category=birthday'],
                 category: 'Birthday Sign',
                 description: 'Celebrate in style! This custom birthday sign is perfect for milestone birthdays (18th, 21st, 30th, 50th). Features a modern layout with the name and age.',
                 status: 'In Stock',
-                options: [
-                    { name: 'Shape', values: ['Arch', 'Rectangle', 'Circle'] },
-                    { name: 'Finish', values: ['Matte Black', 'Matte White', 'Blush Pink'] }
-                ],
-                reviews: [
-                    { rating: 5, user: 'Chen W.', comment: 'Bold and beautiful. My daughter loved it for her 21st!' }
-                ]
+                options: [{ name: 'Shape', values: ['Arch', 'Rectangle', 'Circle'] }, { name: 'Finish', values: ['Matte Black', 'Matte White', 'Blush Pink'] }],
+                reviews: [{ rating: 5, user: 'Chen W.', comment: 'Bold and beautiful. My daughter loved it for her 21st!' }]
             },
             {
                 id: 5, name: 'Acrylic Table Numbers (Set of 10)', price: 4100,
-                images: [
-                    'https://picsum.photos/600/600?random=10&category=table',
-                    'https://picsum.photos/600/600?random=11&category=table'
-                ],
+                images: ['https://picsum.photos/600/600?random=10&category=table', 'https://picsum.photos/600/600?random=11&category=table'],
                 category: 'Table Number',
                 description: 'A set of 10 minimalist acrylic table numbers with stands. Clear acrylic with vinyl or 3D lettering. Helps your guests find their table with ease and style.',
                 status: 'In Stock',
-                options: [
-                    { name: 'Lettering', values: ['White Vinyl', 'Black Vinyl', 'Gold 3D Acrylic'] },
-                    { name: 'Stand Color', values: ['Clear', 'Wood', 'Gold'] }
-                ],
-                reviews: [
-                    { rating: 5, user: 'Michelle B.', comment: 'So chic and matched our theme perfectly.' }
-                ]
+                options: [{ name: 'Lettering', values: ['White Vinyl', 'Black Vinyl', 'Gold 3D Acrylic'] }, { name: 'Stand Color', values: ['Clear', 'Wood', 'Gold'] }],
+                reviews: [{ rating: 5, user: 'Michelle B.', comment: 'So chic and matched our theme perfectly.' }]
             },
             {
                 id: 6, name: 'Arch Reserved Sign', price: 1200,
-                images: [
-                    'https://picsum.photos/600/600?random=12&category=sign',
-                    'https://picsum.photos/600/600?random=13&category=sign'
-                ],
+                images: ['https://picsum.photos/600/600?random=12&category=sign', 'https://picsum.photos/600/600?random=13&category=sign'],
                 category: 'Reserved Sign',
                 description: 'A small, elegant arch-shaped "Reserved" sign for ceremony chairs or special tables. Includes a silk ribbon. Price is per sign.',
                 status: 'In Stock',
-                options: [
-                    { name: 'Ribbon Color', values: ['White', 'Black', 'Dusty Blue', 'None'] }
-                ],
+                options: [{ name: 'Ribbon Color', values: ['White', 'Black', 'Dusty Blue', 'None'] }],
                 reviews: []
             },
             {
                 id: 7, name: 'Minimalist Menu Cards (Set of 25)', price: 3800,
-                images: [
-                    'https://picsum.photos/600/600?random=14&category=menu',
-                    'https://picsum.photos/600/600?random=15&category=menu'
-                ],
+                images: ['https://picsum.photos/600/600?random=14&category=menu', 'https://picsum.photos/600/600?random=15&category=menu'],
                 category: 'Menu Cards',
                 description: 'A set of 25 beautifully designed menu cards, printed on high-quality vellum or thick cardstock. We will customize the text to match your event\'s menu.',
                 status: 'In Stock',
-                options: [
-                    { name: 'Material', values: ['Vellum', 'White Cardstock', 'Black Cardstock'] },
-                    { name: 'Print Color', values: ['Black', 'White', 'Gold Foil'] }
-                ],
-                reviews: [
-                    { rating: 5, user: 'Jessica P.', comment: 'So glamorous! The gold foil was perfect.' }
-                ]
+                options: [{ name: 'Material', values: ['Vellum', 'White Cardstock', 'Black Cardstock'] }, { name: 'Print Color', values: ['Black', 'White', 'Gold Foil'] }],
+                reviews: [{ rating: 5, user: 'Jessica P.', comment: 'So glamorous! The gold foil was perfect.' }]
             },
             {
                 id: 8, name: 'Acrylic Place Cards (Set of 10)', price: 2000,
-                images: [
-                    'https://picsum.photos/600/600?random=16&category=name',
-                    'https://picsum.photos/600/600?random=17&category=name'
-                ],
+                images: ['https://picsum.photos/600/600?random=16&category=name', 'https://picsum.photos/600/600?random=17&category=name'],
                 category: 'Place Cards',
                 description: 'A set of 10 personalized acrylic place cards with your guests\' names. A beautiful keepsake for your attendees. Please provide name list after checkout.',
                 status: 'In Stock',
-                options: [
-                    { name: 'Style', values: ['Clear', 'Frosted'] },
-                    { name: 'Ink Color', values: ['White', 'Black', 'Gold'] }
-                ],
+                options: [{ name: 'Style', values: ['Clear', 'Frosted'] }, { name: 'Ink Color', values: ['White', 'Black', 'Gold'] }],
                 reviews: []
+            },
+            {
+                id: 9, name: 'Frosted Thank You Cards (Set of 25)', price: 2500,
+                images: ['https://picsum.photos/600/600?random=18&category=card', 'https://picsum.photos/600/600?random=19&category=card'],
+                category: 'Thankyou Cards',
+                description: 'A set of 25 unique frosted acrylic thank you cards. A memorable way to thank your guests for celebrating with you. Envelopes included.',
+                status: 'In Stock',
+                options: [{ name: 'Size', values: ['A2 (4.25x5.5")', 'A7 (5x7")'] }],
+                reviews: []
+            },
+            {
+                id: 10, name: 'Round Welcome Sign (Floral)', price: 5200,
+                images: ['https://picsum.photos/600/600?random=20&category=floral', 'https://picsum.photos/600/600?random=21&category=floral'],
+                category: 'Welcome Sign',
+                description: 'A stunning round welcome sign with a painted back and 3D acrylic lettering. Perfect for a garden wedding or floral-themed baby shower.',
+                status: 'In Stock',
+                options: [{ name: 'Diameter', values: ['24"', '30"'] }, { name: 'Painted Back Color', values: ['Blush Pink', 'Dusty Blue', 'White'] }],
+                reviews: [{ rating: 5, user: 'Sarah K.', comment: 'Absolutely perfect for my sister\'s shower.' }]
             }
         ];
 
@@ -1716,27 +1874,38 @@
                         }
                     });
                 },
+
                 login(email, password) {
+                    const app = Alpine.store('app');
                     console.log('Attempting login:', email);
                     const foundUser = this.users.find(u => u.email === email && u.password === password);
+
                     if (foundUser) {
                         this.user = { name: foundUser.name, email: foundUser.email, role: foundUser.role };
-                        Alpine.store('app').showToast(`Welcome back, ${this.user.name}!`, 'success');
-                        Alpine.store('app').navigate(this.user.role === 'admin' ? 'admin' : 'home');
-                        Alpine.store('app').loginForm = { email: '', password: '' };
+                        app.showToast(`Welcome back, ${foundUser.name.split(' ')[0]}!`, 'success');
+
+                        if (app.postLoginAction) {
+                            app.postLoginAction();
+                            app.postLoginAction = null;
+                            app.showLoginModal = false;
+                        } else {
+                            app.navigate(this.user.role === 'admin' ? 'admin' : 'account');
+                        }
+                        app.loginForm = { email: '', password: '' };
                     } else {
-                        Alpine.store('app').showToast('Invalid email or password.', 'error');
+                        app.showToast('Invalid email or password.', 'error');
                     }
                 },
                 register(name, email, password) {
+                    const app = Alpine.store('app');
                     console.log('Attempting register:', name, email);
                     if (!name || !email || !password) {
-                        Alpine.store('app').showToast('Please fill all registration fields.', 'error');
+                        app.showToast('Please fill all registration fields.', 'error');
                         return;
                     }
                     const existingUser = this.users.find(u => u.email === email);
                     if (existingUser) {
-                        Alpine.store('app').showToast('Email already registered.', 'error');
+                        app.showToast('Email already registered.', 'error');
                         return;
                     }
                     const newUser = {
@@ -1746,9 +1915,9 @@
                         role: 'customer'
                     };
                     this.users.push(newUser);
-                    Alpine.store('app').showToast('Account created successfully! Please login.', 'success');
-                    Alpine.store('app').loginTab = 'login';
-                    Alpine.store('app').registerForm = { name: '', email: '', password: '' };
+                    app.showToast('Account created successfully! Please login.', 'success');
+                    app.loginTab = 'login';
+                    app.registerForm = { name: '', email: '', password: '' };
                 },
                 logout() {
                     this.user = null;
@@ -1757,23 +1926,24 @@
                 }
             });
 
-            // --- Main App Component Data ---
-            Alpine.data('artistryHaven', () => ({
-                // State
+            Alpine.data('craftingSignApp', () => ({
                 view: 'home',
                 mobileMenuOpen: false,
                 cartOpen: false,
+                filterMenuOpen: false,
                 loginTab: 'login',
                 currentSlide: 0,
                 currentProduct: null,
                 products: [],
                 mainImage: '',
                 selectedOptions: {},
-
                 currentCurrency: { code: 'INR', symbol: '₹' },
                 activeCategory: 'All',
                 sortBy: 'default',
-                // ...
+
+                quickViewModal: { open: false, product: null },
+                showLoginModal: false,
+                postLoginAction: null,
 
                 loginForm: { email: '', password: '' },
                 registerForm: { name: '', email: '', password: '' },
@@ -1792,36 +1962,18 @@
                 },
 
                 heroSlides: [
-                    {
-                        image: 'https://picsum.photos/1920/1080?random=101&blur=1&category=wedding',
-                        title: 'Make Your Moments Memorable',
-                        subtitle: 'Custom acrylic welcome signs, seating charts, and event décor, handmade with love.',
-                        buttonText: 'Shop Collections'
-                    },
-                    {
-                        image: 'https://picsum.photos/1920/1080?random=102&blur=1&category=event',
-                        title: 'Elegant Event Signage',
-                        subtitle: 'From weddings to baby showers, add a personal and elegant touch to every occasion.',
-                        buttonText: 'View All Signs'
-                    },
-                    {
-                        image: 'https://picsum.photos/1920/1080?random=103&blur=1&category=party',
-                        title: 'Your Vision, Brought to Life',
-                        subtitle: 'We offer worldwide shipping and full custom designs to create exactly what you imagine.',
-                        buttonText: 'Request Custom Art'
-                    }
+                    { image: 'https://picsum.photos/1920/1080?random=101&blur=1&category=wedding', title: 'Make Your Moments Memorable', subtitle: 'Custom acrylic welcome signs, seating charts, and event décor, handmade with love.', buttonText: 'Shop Collections' },
+                    { image: 'https://picsum.photos/1920/1080?random=102&blur=1&category=event', title: 'Elegant Event Signage', subtitle: 'From weddings to baby showers, add a personal and elegant touch to every occasion.', buttonText: 'View All Signs' },
+                    { image: 'https://picsum.photos/1920/1080?random=103&blur=1&category=party', title: 'Your Vision, Brought to Life', subtitle: 'We offer worldwide shipping and full custom designs to create exactly what you imagine.', buttonText: 'Request Custom Art' }
                 ],
-
 
                 get allCategories() {
                     const categories = this.products.map(p => p.category);
-                    return ['All', ...new Set(categories)]; // Get unique categories
+                    return ['All', ...new Set(categories)];
                 },
 
                 get filteredProducts() {
-
                     const currency = this.currentCurrency;
-
                     let products = [...this.products];
 
                     if (this.activeCategory !== 'All') {
@@ -1829,40 +1981,20 @@
                     }
 
                     switch (this.sortBy) {
-                        case 'price-asc':
-                            products.sort((a, b) => a.price - b.price);
-                            break;
-                        case 'price-desc':
-                            products.sort((a, b) => b.price - a.price);
-                            break;
-                        case 'name-asc':
-                            products.sort((a, b) => a.name.localeCompare(b.name));
-                            break;
-                        case 'name-desc':
-                            products.sort((a, b) => b.name.localeCompare(a.name));
-                            break;
+                        case 'price-asc': products.sort((a, b) => a.price - b.price); break;
+                        case 'price-desc': products.sort((a, b) => b.price - a.price); break;
+                        case 'name-asc': products.sort((a, b) => a.name.localeCompare(b.name)); break;
+                        case 'name-desc': products.sort((a, b) => b.name.localeCompare(a.name)); break;
                     }
-
                     return products;
                 },
 
-
-                formatCurrency(amount) {
-                    const options = {
-                        style: 'currency',
-                        currency: this.currentCurrency.code,
-                        minimumFractionDigits: 0
-                    };
-                    return new Intl.NumberFormat('en-IN', options).format(amount);
-                },
-
-
                 async fetchProducts() {
                     try {
-                        if (true) throw new Error('Using mock data');
-                    } catch (error) {
-                        console.warn('Backend fetch failed, using mock data:', error.message);
                         this.products = MOCK_PRODUCTS;
+                    } catch (error) {
+                        console.error('Failed to load mock products:', error);
+                        this.showToast('Error: Could not load products.', 'error');
                     }
                 },
 
@@ -1871,13 +2003,7 @@
                     Alpine.store('cart').init();
                     Alpine.store('auth').init();
                     await this.fetchProducts();
-
-
-                    AOS.init({
-                        duration: 800,
-                        once: true,
-                    });
-
+                    AOS.init({ duration: 800, once: true });
                     setInterval(() => {
                         this.currentSlide = (this.currentSlide + 1) % this.heroSlides.length;
                     }, 6000);
@@ -1912,7 +2038,6 @@
                         },
                     });
                 },
-
                 showToast(message, type = 'success', duration = 3000) {
                     clearTimeout(this.toast.timeout);
                     this.toast.message = message;
@@ -1939,6 +2064,35 @@
                     this.mobileMenuOpen = false;
                 },
 
+
+                loginGate(actionCallback) {
+                    if (this.$store.auth.user) {
+                        actionCallback();
+                    } else {
+                        this.postLoginAction = actionCallback;
+                        this.showLoginModal = true;
+                    }
+                },
+
+                openQuickViewModal(product) {
+                    this.quickViewModal.product = product;
+                    this.quickViewModal.open = true;
+                },
+
+                formatCurrency(amount) {
+                    const options = {
+                        style: 'currency',
+                        currency: this.currentCurrency.code,
+                        minimumFractionDigits: 2
+                    };
+                    let locale = 'en-IN';
+                    if (this.currentCurrency.code === 'USD') locale = 'en-US';
+                    if (this.currentCurrency.code === 'EUR') locale = 'de-DE';
+                    if (this.currentCurrency.code === 'CAD') locale = 'en-CA';
+
+                    return new Intl.NumberFormat(locale, options).format(amount);
+                },
+
                 viewProduct(product) {
                     this.currentProduct = { ...product, quantity: product.quantity || 1 };
                     this.mainImage = this.currentProduct.images[0];
@@ -1951,7 +2105,6 @@
                     this.navigate('product');
                 },
 
-                // --- Admin Product Methods ---
                 openProductModal(product = null) {
                     if (product) {
                         this.productModal.id = product.id;
