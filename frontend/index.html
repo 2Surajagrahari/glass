@@ -62,7 +62,7 @@
             <button @click="toast.visible = false" class="ml-4 opacity-75 hover:opacity-100">&times;</button>
         </div>
 
-        <header class="sticky top-0 z-50 bg-white/90 backdrop-blur-lg shadow-sm border-b border-gray-100">
+        <!-- <header class="sticky top-0 z-50 bg-white/90 backdrop-blur-lg shadow-sm border-b border-gray-100">
             <nav class="container mx-auto flex items-center justify-between p-4">
                 <a href="#" @click.prevent="navigate('home')"
                     class="font-serif text-3xl font-bold text-brand-primary">Crafting Sign</a>
@@ -162,6 +162,130 @@
                                 class="block text-gray-700 hover:text-brand-primary">Birthday Signs</a>
                             <a href="#" @click.prevent="mobileMenuOpen=false"
                                 class="block text-gray-700 hover:text-brand-primary">Table Numbers</a>
+                        </div>
+                    </li>
+                    <li><a href="#" @click.prevent="scrollTo('contact'); mobileMenuOpen=false"
+                            class="block pt-2 hover:text-brand-primary transition-colors">Contact</a></li>
+                    <template x-if="!$store.auth.user">
+                        <li class="pt-4"><a href="#" @click.prevent="navigate('login'); mobileMenuOpen=false"
+                                class="px-5 py-2 rounded-full border border-brand-primary text-brand-primary">Login</a>
+                        </li>
+                    </template>
+                </ul>
+            </div>
+        </header> -->
+        <header class="sticky top-0 z-50 bg-white/90 backdrop-blur-lg shadow-sm border-b border-gray-100">
+            <nav class="container mx-auto flex items-center justify-between p-4 gap-4">
+                <a href="#" @click.prevent="navigate('home')"
+                    class="font-serif text-3xl font-bold text-brand-primary">Crafting Sign</a>
+
+                <ul class="hidden lg:flex items-center gap-8 text-sm font-medium tracking-wide">
+                    <li><a href="#" @click.prevent="navigate('home')"
+                            class="hover:text-brand-primary transition-colors">Home</a></li>
+                    <li><a href="#" @click.prevent="navigate('shop')"
+                            class="hover:text-brand-primary transition-colors">Shop</a></li>
+                    <li><a href="#" @click.prevent="scrollTo('about')"
+                            class="hover:text-brand-primary transition-colors">About</a></li>
+                    <li class="relative" x-data="{ open: false }" @mouseenter="open = true" @mouseleave="open = false">
+                        <button class="flex items-center gap-1 hover:text-brand-primary transition-colors">
+                            Categories <i class="fa-solid fa-chevron-down h-4 w-4 transition-transform"
+                                :class="{'rotate-180': open}"></i>
+                        </button>
+                        <div x-show="open" x-transition
+                            class="absolute top-full left-1/2 -translate-x-1/2 mt-2 w-56 bg-white rounded-md shadow-lg p-2 z-50 border border-gray-100">
+                            <template x-for="category in allCategories.filter(c => c !== 'All')" :key="category">
+                                <a href="#" @click.prevent="activeCategory = category; navigate('shop')"
+                                    class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-50 rounded-md"
+                                    x-text="category"></a>
+                            </template>
+                        </div>
+                    </li>
+                    <li><a href="#" @click.prevent="scrollTo('contact')"
+                            class="hover:text-brand-primary transition-colors">Contact</a></li>
+                </ul>
+
+                <div class="hidden md:block relative flex-1 max-w-xs">
+                    <input type="text" placeholder="Search for signs..."
+                        class="w-full pl-10 pr-4 py-2 text-sm border border-gray-200 rounded-full bg-brand-secondary/50 focus:bg-white focus:ring-1 focus:ring-brand-primary focus:border-brand-primary transition-all">
+                    <i class="fa-solid fa-search h-4 w-4 absolute left-4 top-1/2 -translate-y-1/2 text-gray-400"></i>
+                </div>
+
+                <div class="flex items-center gap-5">
+                    <div class="relative" x-data="{ open: false }">
+                        <button @click="open = !open"
+                            class="hidden sm:block text-sm font-medium text-gray-500 hover:text-brand-text"
+                            x-text="currentCurrency.code"></button>
+                        <div x-show="open" @click.away="open = false"
+                            class="absolute right-0 mt-3 w-36 bg-white rounded-md shadow-lg py-1 z-50 border border-gray-100"
+                            style="display: none;">
+                            <a href="#" @click.prevent="currentCurrency = {code: 'INR', symbol: '₹'}; open = false"
+                                class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-50">INR (₹) - Rupees</a>
+                            <a href="#" @click.prevent="currentCurrency = {code: 'USD', symbol: '$'}; open = false"
+                                class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-50">USD ($) - Dollar</a>
+                            <a href="#" @click.prevent="currentCurrency = {code: 'EUR', symbol: '€'}; open = false"
+                                class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-50">EUR (€) - Euro</a>
+                            <a href="#" @click.prevent="currentCurrency = {code: 'CAD', symbol: '$'}; open = false"
+                                class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-50">CAD ($) - Canadian</a>
+                        </div>
+                    </div>
+
+                    <button @click="cartOpen = true" class="relative hover:text-brand-primary transition-colors">
+                        <i class="fa-solid fa-bag-shopping h-6 w-6"></i>
+                        <span x-show="$store.cart.count > 0"
+                            class="absolute -top-2 -right-2 flex h-5 w-5 items-center justify-center rounded-full bg-brand-primary text-xs font-bold text-white"
+                            x-text="$store.cart.count"></span>
+                    </button>
+
+                    <template x-if="!$store.auth.user">
+                        <button @click="navigate('login')"
+                            class="hidden md:inline-block px-5 py-2 text-sm font-semibold rounded-full border border-brand-primary text-brand-primary hover:bg-brand-primary hover:text-white transition-all">Login</button>
+                    </template>
+
+                    <template x-if="$store.auth.user">
+                        <div class="relative" x-data="{ dropdownOpen: false }">
+                            <button @click="dropdownOpen = !dropdownOpen" class="flex items-center gap-2">
+                                <img src="https://picsum.photos/40/40?random=200" alt="avatar"
+                                    class="h-8 w-8 rounded-full border-2 border-brand-primary/50 object-cover">
+                            </button>
+                            <div x-show="dropdownOpen" @click.away="dropdownOpen = false"
+                                class="absolute right-0 mt-3 w-48 bg-white rounded-md shadow-lg py-1 z-50 border border-gray-100">
+                                <div class="px-4 py-2 border-b">
+                                    <p class="text-sm font-medium text-brand-text" x-text="$store.auth.user.name"></p>
+                                    <p class="text-xs text-gray-500" x-text="$store.auth.user.email"></p>
+                                </div>
+                                <a href="#" @click.prevent="navigate('account'); dropdownOpen = false"
+                                    class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-50">My Account</a>
+                                <template x-if="$store.auth.user.role === 'admin'">
+                                    <a href="#" @click.prevent="navigate('admin'); dropdownOpen = false"
+                                        class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-50">Admin Panel</a>
+                                </template>
+                                <a href="#" @click.prevent="$store.auth.logout(); dropdownOpen = false;"
+                                    class="block px-4 py-2 text-sm text-red-600 hover:bg-red-50">Logout</a>
+                            </div>
+                        </div>
+                    </template>
+                    <button @click="mobileMenuOpen = !mobileMenuOpen" class="lg:hidden">
+                        <i class="fa-solid fa-bars h-6 w-6"></i>
+                    </button>
+                </div>
+            </nav>
+
+            <div x-show="mobileMenuOpen" x-transition class="lg:hidden bg-white/95 border-t border-gray-100">
+                <ul class="flex flex-col items-center gap-4 py-4 divide-y divide-gray-100 w-full">
+                    <li><a href="#" @click.prevent="navigate('home'); mobileMenuOpen=false"
+                            class="block py-2 hover:text-brand-primary transition-colors">Home</a></li>
+                    <li><a href="#" @click.prevent="navigate('shop'); mobileMenuOpen=false"
+                            class="block py-2 hover:text-brand-primary transition-colors">Shop</a></li>
+                    <li><a href="#" @click.prevent="scrollTo('about'); mobileMenuOpen=false"
+                            class="block py-2 hover:text-brand-primary transition-colors">About</a></li>
+                    <li class="w-full text-center pt-2">
+                        <span class="font-semibold text-gray-500 text-xs tracking-widest uppercase">Categories</span>
+                        <div class="mt-2 space-y-2">
+                            <template x-for="category in allCategories.filter(c => c !== 'All')" :key="category">
+                                <a href="#"
+                                    @click.prevent="activeCategory = category; navigate('shop'); mobileMenuOpen=false"
+                                    class="block text-gray-700 hover:text-brand-primary" x-text="category"></a>
+                            </template>
                         </div>
                     </li>
                     <li><a href="#" @click.prevent="scrollTo('contact'); mobileMenuOpen=false"
@@ -706,7 +830,423 @@
                     </div>
                 </div>
             </div>
+
+
+            <div x-show="view === 'shop'" class="min-h-screen bg-white pt-20">
+                <div class="container mx-auto p-4 md:p-8">
+                    <div class="pt-12 text-center mb-12">
+                        <h1 class="font-serif text-5xl font-bold">Shop All Collections</h1>
+                        <p class="text-lg text-gray-600 mt-2">Find the perfect piece for your celebration.</p>
+                    </div>
+
+                    <div class="grid grid-cols-1 lg:grid-cols-4 gap-8">
+                        <aside
+                            class="col-span-1 bg-brand-bg/50 p-6 rounded-lg shadow-sm border border-gray-200 h-min lg:sticky top-28">
+                            <h3 class="font-serif text-2xl font-semibold mb-6 border-b pb-3">Filters</h3>
+
+                            <div class="mb-6">
+                                <h4 class="font-semibold mb-3 text-brand-text">Category</h4>
+                                <div class="space-y-2">
+                                    <template x-for="category in allCategories" :key="category">
+                                        <label
+                                            class="flex items-center text-sm text-gray-600 hover:text-brand-primary cursor-pointer">
+                                            <input type="radio" x-model="activeCategory" :value="category"
+                                                name="category"
+                                                class="h-4 w-4 text-brand-primary border-gray-300 focus:ring-brand-primary/50">
+                                            <span class="ml-3" x-text="category"></span>
+                                        </label>
+                                    </template>
+                                    <label
+                                        class="flex items-center text-sm text-gray-600 hover:text-brand-primary cursor-pointer">
+                                        <input type="radio" x-model="activeCategory" value="All" name="category"
+                                            class="h-4 w-4 text-brand-primary border-gray-300 focus:ring-brand-primary/50">
+                                        <span class="ml-3">All Categories</span>
+                                    </label>
+                                </div>
+                            </div>
+
+                            <div>
+                                <h4 class="font-semibold mb-3 text-brand-text">Sort By</h4>
+                                <select x-model="sortBy"
+                                    class="w-full bg-white border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-brand-primary/50 focus:border-brand-primary transition p-3 text-sm">
+                                    <option value="default">Default</option>
+                                    <option value="price-asc">Price: Low to High</option>
+                                    <option value="price-desc">Price: High to Low</option>
+                                    <option value="name-asc">Name: A to Z</option>
+                                    <option value="name-desc">Name: Z to A</option>
+                                </select>
+                            </div>
+                        </aside>
+
+                        <div class="col-span-1 lg:col-span-3">
+                            <div class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-8">
+                                <template x-for="(product, index) in filteredProducts" :key="product.id">
+                                    <div class="bg-white rounded-lg shadow-md overflow-hidden group transition-all transform hover:shadow-xl hover:-translate-y-2 flex flex-col"
+                                        data-aos="fade-up" :data-aos-delay="index * 50">
+                                        <div class="relative h-72 overflow-hidden">
+                                            <img :src="product.images[0]" :alt="product.name"
+                                                class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">
+                                            <button @click.stop="viewProduct(product)"
+                                                class="absolute bottom-4 left-1/2 -translate-x-1/2 bg-white/90 text-brand-text px-4 py-2 rounded-full text-xs font-semibold opacity-0 group-hover:opacity-100 transition-opacity duration-300 whitespace-nowrap hover:bg-white">
+                                                Quick View
+                                            </button>
+                                        </div>
+                                        <div class="p-6 flex flex-col flex-grow">
+                                            <h3 class="text-xl font-semibold mb-2 leading-tight" x-text="product.name">
+                                            </h3>
+                                            <p class="text-gray-500 text-xs mb-3 uppercase tracking-wider"
+                                                x-text="product.category"></p>
+                                            <p class="text-2xl font-serif text-brand-primary mb-4 mt-auto"
+                                                x-text="formatCurrency(product.price)"></p>
+                                            <div class="flex items-center gap-3 mt-2">
+                                                <button @click="viewProduct(product)"
+                                                    class="flex-1 text-center bg-brand-primary text-white font-semibold py-2.5 rounded-full hover:bg-brand-primary-dark transition-colors">
+                                                    View Details
+                                                </button>
+                                                <button
+                                                    @click.stop="$store.cart.add(product, 1, product.options ? Object.fromEntries(product.options.map(opt => [opt.name, opt.values[0]])) : {}); showToast(`${product.name} added to cart!`, 'success')"
+                                                    title="Add to Cart"
+                                                    class="flex-shrink-0 p-3 bg-brand-secondary text-brand-primary rounded-full hover:bg-gray-200 transition-colors">
+                                                    <i class="fa-solid fa-bag-shopping h-5 w-5"></i>
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </template>
+                                <template x-if="filteredProducts.length === 0">
+                                    <p class="text-gray-500 sm:col-span-2 xl:col-span-3 text-center py-12">No products
+                                        found matching your filters.</p>
+                                </template>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+
+            <div x-show="view === 'account'" x-transition class="min-h-screen bg-brand-secondary/50 pt-28 pb-16">
+                <div class="container mx-auto p-4 md:p-8">
+
+                    <template x-if="!$store.auth.user">
+                        <div class="text-center py-20 bg-white rounded-lg shadow-md p-8">
+                            <h2 class="font-serif text-3xl font-bold mb-4">Please Log In</h2>
+                            <p class="text-gray-600 mb-8">You must be logged in to view your account page.</p>
+                            <button @click="navigate('login')"
+                                class="bg-brand-primary text-white font-semibold px-10 py-3 rounded-full hover:bg-brand-primary-dark transition-colors">Login
+                                Now</button>
+                        </div>
+                    </template>
+
+                    <template x-if="$store.auth.user">
+                        <div x-data="{ accountTab: 'orders' }">
+                            <h1 class="font-serif text-4xl md:text-5xl font-bold mb-4"
+                                x-text="`Welcome, ${$store.auth.user.name.split(' ')[0]}`"></h1>
+                            <p class="text-lg text-gray-600 mb-10">Manage your orders, addresses, and account details
+                                here.</p>
+
+                            <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+                                <aside class="col-span-1">
+                                    <nav class="flex flex-col space-y-2">
+                                        <button @click="accountTab = 'orders'"
+                                            class="flex items-center gap-3 p-3 rounded-lg text-left"
+                                            :class="accountTab === 'orders' ? 'bg-brand-primary text-white shadow' : 'hover:bg-gray-100 text-brand-text'">
+                                            <i class="fa-solid fa-receipt h-5 w-5"></i>
+                                            <span class="font-medium">Order History</span>
+                                        </button>
+                                        <button @click="accountTab = 'addresses'"
+                                            class="flex items-center gap-3 p-3 rounded-lg text-left"
+                                            :class="accountTab === 'addresses' ? 'bg-brand-primary text-white shadow' : 'hover:bg-gray-100 text-brand-text'">
+                                            <i class="fa-solid fa-location-dot h-5 w-5"></i>
+                                            <span class="font-medium">My Addresses</span>
+                                        </button>
+                                        <button @click="accountTab = 'details'"
+                                            class="flex items-center gap-3 p-3 rounded-lg text-left"
+                                            :class="accountTab === 'details' ? 'bg-brand-primary text-white shadow' : 'hover:bg-gray-100 text-brand-text'">
+                                            <i class="fa-solid fa-user-pen h-5 w-5"></i>
+                                            <span class="font-medium">Account Details</span>
+                                        </button>
+                                        <button @click="$store.auth.logout()"
+                                            class="flex items-center gap-3 p-3 rounded-lg text-left hover:bg-gray-100 text-brand-text">
+                                            <i class="fa-solid fa-right-from-bracket h-5 w-5"></i>
+                                            <span class="font-medium">Logout</span>
+                                        </button>
+                                    </nav>
+                                </aside>
+
+                                <div
+                                    class="col-span-1 md:col-span-3 bg-white rounded-lg shadow-md border border-gray-100 p-6 md:p-8">
+                                    <div x-show="accountTab === 'orders'">
+                                        <h2 class="font-serif text-3xl font-semibold mb-6">Order History</h2>
+                                        <div class="border border-gray-200 rounded-lg overflow-hidden mb-6">
+                                            <div
+                                                class="bg-gray-50 p-4 flex flex-wrap justify-between items-center text-sm gap-4">
+                                                <div>
+                                                    <p class="font-semibold">Order: <span
+                                                            class="font-normal text-gray-600">#1024</span></p>
+                                                    <p class="font-semibold">Placed: <span
+                                                            class="font-normal text-gray-600">October 15, 2025</span>
+                                                    </p>
+                                                </div>
+                                                <div>
+                                                    <p class="font-semibold">Total: <span
+                                                            class="font-normal text-gray-600">₹4,800.00</span></p>
+                                                    <p class="font-semibold">Status: <span
+                                                            class="font-medium text-green-600">Delivered</span></p>
+                                                </div>
+                                            </div>
+                                            <div class="p-4 flex items-center gap-4">
+                                                <img src="https://picsum.photos/100/100?random=1" alt="Product"
+                                                    class="w-20 h-20 rounded-md object-cover">
+                                                <div>
+                                                    <p class="font-semibold">Minimalist Acrylic Welcome Sign</p>
+                                                    <p class="text-sm text-gray-500">Qty: 1</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="border border-gray-200 rounded-lg overflow-hidden">
+                                            <div
+                                                class="bg-gray-50 p-4 flex flex-wrap justify-between items-center text-sm gap-4">
+                                                <div>
+                                                    <p class="font-semibold">Order: <span
+                                                            class="font-normal text-gray-600">#1012</span></p>
+                                                    <p class="font-semibold">Placed: <span
+                                                            class="font-normal text-gray-600">September 22, 2025</span>
+                                                    </p>
+                                                </div>
+                                                <div>
+                                                    <p class="font-semibold">Total: <span
+                                                            class="font-normal text-gray-600">₹2,000.00</span></p>
+                                                    <p class="font-semibold">Status: <span
+                                                            class="font-medium text-blue-600">Shipped</span></p>
+                                                </div>
+                                            </div>
+                                            <div class="p-4 flex items-center gap-4">
+                                                <img src="https://picsum.photos/100/100?random=16" alt="Product"
+                                                    class="w-20 h-20 rounded-md object-cover">
+                                                <div>
+                                                    <p class="font-semibold">Acrylic Place Cards (Set of 10)</p>
+                                                    <p class="text-sm text-gray-500">Qty: 1</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div x-show="accountTab === 'addresses'" style="display: none;">
+                                        <h2 class="font-serif text-3xl font-semibold mb-6">My Addresses</h2>
+                                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                            <div class="border border-gray-200 rounded-lg p-5">
+                                                <h3 class="font-semibold text-lg mb-2">Default Shipping</h3>
+                                                <address class="text-gray-600 not-italic text-sm leading-relaxed">
+                                                    Demo User<br>
+                                                    123 Main St<br>
+                                                    Jaipur, Rajasthan, 302001<br>
+                                                    India<br>
+                                                    +91 98765 43210
+                                                </address>
+                                                <button class="text-sm text-brand-primary hover:underline mt-4">Edit
+                                                    Address</button>
+                                            </div>
+                                            <button
+                                                class="border-2 border-dashed border-gray-300 rounded-lg p-5 flex flex-col items-center justify-center text-gray-500 hover:text-brand-primary hover:border-brand-primary transition-colors h-full min-h-[150px]">
+                                                <i class="fa-solid fa-plus h-6 w-6 mb-2"></i>
+                                                <span class="font-medium text-sm">Add New Address</span>
+                                            </button>
+                                        </div>
+                                    </div>
+
+                                    <div x-show="accountTab === 'details'" style="display: none;">
+                                        <h2 class="font-serif text-3xl font-semibold mb-6">Account Details</h2>
+                                        <form @submit.prevent="showToast('Profile updated!', 'success')"
+                                            class="space-y-5 max-w-lg">
+                                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
+                                                <div>
+                                                    <label class="block text-sm font-medium mb-1 text-gray-700">Full
+                                                        Name</label>
+                                                    <input type="text" :value="$store.auth.user.name"
+                                                        class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-1 focus:ring-brand-primary focus:border-brand-primary text-sm">
+                                                </div>
+                                                <div>
+                                                    <label class="block text-sm font-medium mb-1 text-gray-700">Email
+                                                        Address</label>
+                                                    <input type="email" :value="$store.auth.user.email"
+                                                        class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-1 focus:ring-brand-primary focus:border-brand-primary text-sm"
+                                                        disabled>
+                                                </div>
+                                            </div>
+                                            <div>
+                                                <label class="block text-sm font-medium mb-1 text-gray-700">New
+                                                    Password</label>
+                                                <input type="password" placeholder="Leave blank to keep current"
+                                                    class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-1 focus:ring-brand-primary focus:border-brand-primary text-sm">
+                                            </div>
+                                            <div>
+                                                <label class="block text-sm font-medium mb-1 text-gray-700">Confirm New
+                                                    Password</label>
+                                                <input type="password" placeholder="••••••••"
+                                                    class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-1 focus:ring-brand-primary focus:border-brand-primary text-sm">
+                                            </div>
+                                            <div class="pt-2">
+                                                <button type="submit"
+                                                    class="bg-brand-primary text-white font-semibold px-8 py-2.5 rounded-full hover:bg-brand-primary-dark transition-colors">Save
+                                                    Changes</button>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </template>
+                </div>
+            </div>
+
+
+
+
+            <div x-show="view === 'checkout'" class="min-h-screen bg-white pt-28 pb-16">
+                <div class="container mx-auto p-4 md:p-8">
+
+                    <template x-if="$store.cart.items.length === 0">
+                        <div class="text-center py-20 bg-gray-50 rounded-lg shadow-sm p-8">
+                            <i class="fa-solid fa-bag-shopping h-20 w-20 mx-auto mb-4 text-gray-300"></i>
+                            <h2 class="font-serif text-3xl font-bold mb-4">Your Cart is Empty</h2>
+                            <p class="text-gray-600 mb-8">You can't check out until you add some items to your cart.</p>
+                            <button @click="navigate('shop')"
+                                class="bg-brand-primary text-white font-semibold px-10 py-3 rounded-full hover:bg-brand-primary-dark transition-colors">Start
+                                Shopping</button>
+                        </div>
+                    </template>
+
+                    <template x-if="$store.cart.items.length > 0">
+                        <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16">
+                            <div class="lg:order-1">
+                                <h1 class="font-serif text-4xl font-bold mb-8">Checkout</h1>
+                                <form
+                                    @submit.prevent="showToast('Order placed (demo)!', 'success'); $store.cart.items = []; navigate('home');">
+                                    <div class="space-y-10">
+                                        <section>
+                                            <h2 class="font-serif text-2xl font-semibold mb-5">Shipping Address</h2>
+                                            <div class="space-y-5">
+                                                <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
+                                                    <div>
+                                                        <label
+                                                            class="block text-sm font-medium mb-1 text-gray-700">First
+                                                            Name</label>
+                                                        <input type="text" required
+                                                            class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-1 focus:ring-brand-primary focus:border-brand-primary text-sm">
+                                                    </div>
+                                                    <div>
+                                                        <label class="block text-sm font-medium mb-1 text-gray-700">Last
+                                                            Name</label>
+                                                        <input type="text" required
+                                                            class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-1 focus:ring-brand-primary focus:border-brand-primary text-sm">
+                                                    </div>
+                                                </div>
+                                                <div>
+                                                    <label
+                                                        class="block text-sm font-medium mb-1 text-gray-700">Address</label>
+                                                    <input type="text" placeholder="Street, Apt, etc." required
+                                                        class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-1 focus:ring-brand-primary focus:border-brand-primary text-sm">
+                                                </div>
+                                                <div class="grid grid-cols-1 sm:grid-cols-3 gap-5">
+                                                    <div>
+                                                        <label
+                                                            class="block text-sm font-medium mb-1 text-gray-700">City</label>
+                                                        <input type="text" required
+                                                            class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-1 focus:ring-brand-primary focus:border-brand-primary text-sm">
+                                                    </div>
+                                                    <div>
+                                                        <label
+                                                            class="block text-sm font-medium mb-1 text-gray-700">State /
+                                                            Province</label>
+                                                        <input type="text" required
+                                                            class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-1 focus:ring-brand-primary focus:border-brand-primary text-sm">
+                                                    </div>
+                                                    <div>
+                                                        <label class="block text-sm font-medium mb-1 text-gray-700">ZIP
+                                                            / Postal Code</label>
+                                                        <input type="text" required
+                                                            class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-1 focus:ring-brand-primary focus:border-brand-primary text-sm">
+                                                    </div>
+                                                </div>
+                                                <div>
+                                                    <label
+                                                        class="block text-sm font-medium mb-1 text-gray-700">Country</label>
+                                                    <input type="text" value="India" required
+                                                        class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-1 focus:ring-brand-primary focus:border-brand-primary text-sm">
+                                                </div>
+                                            </div>
+                                        </section>
+
+                                        <section>
+                                            <h2 class="font-serif text-2xl font-semibold mb-5">Payment Details</h2>
+                                            <div class="border border-gray-200 rounded-lg p-5 bg-gray-50">
+                                                <p class="text-gray-600 text-sm">This is a demo. This
+                                                    would be a secure payment form.</p>
+                                                <div
+                                                    class="mt-4 p-4 bg-white rounded-lg border border-gray-300 font-mono text-gray-400">
+                                                    [ Mock Card Element ]</div>
+                                            </div>
+                                        </section>
+
+                                        <button type="submit"
+                                            class="w-full bg-brand-primary text-white font-semibold py-3.5 rounded-full shadow-lg hover:bg-brand-primary-dark transition-colors transform hover:scale-[1.02]">
+                                            Place Order
+                                        </button>
+                                    </div>
+                                </form>
+                            </div>
+
+                            <div
+                                class="lg:order-2 bg-brand-bg/50 rounded-lg shadow-sm border border-gray-200 p-6 md:p-8 h-min lg:sticky top-28">
+                                <h2 class="font-serif text-2xl font-semibold mb-6">Your Order Summary</h2>
+                                <div class="space-y-5 divide-y divide-gray-200">
+                                    <template x-for="item in $store.cart.items" :key="item.cartId">
+                                        <div class="flex items-start gap-4 pt-5 first:pt-0">
+                                            <img :src="item.images[0]"
+                                                class="h-16 w-16 object-cover rounded-md border border-gray-100 flex-shrink-0">
+                                            <div class="flex-1">
+                                                <p class="font-semibold text-brand-text mb-1" x-text="item.name"></p>
+                                                <template
+                                                    x-if="item.selectedOptions && Object.keys(item.selectedOptions).length > 0">
+                                                    <div class="text-xs text-gray-500 mt-1 space-y-0.5">
+                                                        <template x-for="(value, key) in item.selectedOptions"
+                                                            :key="key">
+                                                            <p><span x-text="key + ':'"></span> <span
+                                                                    x-text="value"></span></p>
+                                                        </template>
+                                                    </div>
+                                                </template>
+                                                <p class="text-xs text-gray-500 mt-1" x-text="`Qty: ${item.quantity}`">
+                                                </p>
+                                            </div>
+                                            <p class="font-medium" x-text="formatCurrency(item.price * item.quantity)">
+                                            </p>
+                                        </div>
+                                    </template>
+                                </div>
+                                <div class="mt-6 pt-6 border-t border-gray-300 space-y-3">
+                                    <div class="flex justify-between text-sm text-gray-600">
+                                        <span>Subtotal</span>
+                                        <span class="font-medium" x-text="formatCurrency($store.cart.total)"></span>
+                                    </div>
+                                    <div class="flex justify-between text-sm text-gray-600">
+                                        <span>Shipping</span>
+                                        <span class="font-medium">Calculated at next step</span>
+                                    </div>
+                                    <div class="flex justify-between font-semibold text-lg text-brand-text pt-2">
+                                        <span>Total</span>
+                                        <span x-text="formatCurrency($store.cart.total)"></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </template>
+                </div>
+            </div>
+
         </main>
+
 
         <div x-show="cartOpen" @keydown.escape.window="cartOpen = false" x-trap.inert.noscroll="cartOpen">
             <div @click="cartOpen = false" class="fixed inset-0 bg-black bg-opacity-60 z-[99]" x-show="cartOpen"
@@ -776,7 +1316,7 @@
                         <span>Subtotal</span>
                         <span x-text="`₹${$store.cart.total.toLocaleString()}`"></span>
                     </div>
-                    <button
+                    <button @click="navigate('checkout'); cartOpen = false"
                         class="w-full bg-brand-primary text-white font-semibold py-3 rounded-full hover:bg-brand-primary-dark transition-colors shadow-md">Proceed
                         to Checkout</button>
                     <p class="text-xs text-gray-500 text-center mt-3">Shipping & taxes calculated at checkout.</p>
@@ -1230,6 +1770,11 @@
                 mainImage: '',
                 selectedOptions: {},
 
+                currentCurrency: { code: 'INR', symbol: '₹' },
+                activeCategory: 'All',
+                sortBy: 'default',
+                // ...
+
                 loginForm: { email: '', password: '' },
                 registerForm: { name: '', email: '', password: '' },
 
@@ -1266,6 +1811,51 @@
                         buttonText: 'Request Custom Art'
                     }
                 ],
+
+
+                get allCategories() {
+                    const categories = this.products.map(p => p.category);
+                    return ['All', ...new Set(categories)]; // Get unique categories
+                },
+
+                get filteredProducts() {
+
+                    const currency = this.currentCurrency;
+
+                    let products = [...this.products];
+
+                    if (this.activeCategory !== 'All') {
+                        products = products.filter(p => p.category === this.activeCategory);
+                    }
+
+                    switch (this.sortBy) {
+                        case 'price-asc':
+                            products.sort((a, b) => a.price - b.price);
+                            break;
+                        case 'price-desc':
+                            products.sort((a, b) => b.price - a.price);
+                            break;
+                        case 'name-asc':
+                            products.sort((a, b) => a.name.localeCompare(b.name));
+                            break;
+                        case 'name-desc':
+                            products.sort((a, b) => b.name.localeCompare(a.name));
+                            break;
+                    }
+
+                    return products;
+                },
+
+
+                formatCurrency(amount) {
+                    const options = {
+                        style: 'currency',
+                        currency: this.currentCurrency.code,
+                        minimumFractionDigits: 0
+                    };
+                    return new Intl.NumberFormat('en-IN', options).format(amount);
+                },
+
 
                 async fetchProducts() {
                     try {
