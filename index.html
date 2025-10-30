@@ -327,14 +327,11 @@
             </div>
         </div>
     </div>
-
-    <!-- Background Elements -->
     <div class="background-text bg-text-1">CRAFTING SIGN</div>
     <div class="background-text bg-text-2">COMING SOON</div>
     <div class="decorative-circle circle-1"></div>
     <div class="decorative-circle circle-2"></div>
 
-    <!-- Main Content -->
     <div class="main-container">
         <h1 class="brand-name">Crafting Sign</h1>
         <p class="coming-soon">Coming Soon</p>
@@ -375,10 +372,8 @@
             document.getElementById('loader').classList.add('hidden');
         }, 2000);
 
-        // Countdown Timer - Set for 2 days from now
-        const now = new Date().getTime();
-        const twoDays = 2 * 24 * 60 * 60 * 1000;
-        const launchDate = now + twoDays;
+        // Countdown Timer - Set to November 1, 2025 at 12:00 AM
+        const launchDate = new Date('2025-11-01T00:00:00').getTime();
 
         function updateCountdown() {
             const currentTime = new Date().getTime();
