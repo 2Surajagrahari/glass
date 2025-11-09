@@ -1,7 +1,6 @@
 /* Base styles */
 body {
     font-family: 'Manrope', 'sans-serif';
-    font-family: 'Manrope', 'sans-serif';
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
 }
@@ -26,107 +25,103 @@ body {
 .hero-slide-image {
     animation: kenburns 12s ease-in-out infinite alternate;
     transform: scale(1.15);
+}
 
-    .hero-slide-image {
-        animation: kenburns 12s ease-in-out infinite alternate;
-        transform: scale(1.15);
-    }
+[x-cloak] {
+    display: none !important;
+}
 
-    [x-cloak] {
-        display: none !important;
-    }
+/* Accessibility Focus Ring */
+*:focus-visible {
+    outline: 2px solid theme('colors.brand-primary');
+    outline-offset: 2px;
+    border-radius: 4px;
+}
 
-    /* Accessibility Focus Ring */
-    *:focus-visible {
-        outline: 2px solid theme('colors.brand-primary');
-        outline-offset: 2px;
-        border-radius: 4px;
-    }
+/* Scrollbar Styles */
+::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
 
-    /* Scrollbar Styles */
-    ::-webkit-scrollbar {
-        width: 8px;
-        height: 8px;
-    }
+::-webkit-scrollbar-track {
+    background: theme('colors.gray.100');
+}
 
-    ::-webkit-scrollbar-track {
-        background: theme('colors.gray.100');
-    }
+::-webkit-scrollbar-thumb {
+    background: theme('colors.gray.400');
+    border-radius: 4px;
+}
 
-    ::-webkit-scrollbar-thumb {
-        background: theme('colors.gray.400');
-        border-radius: 4px;
-    }
-
-    ::-webkit-scrollbar-thumb:hover {
-        background: theme('colors.gray.500');
-    }
+::-webkit-scrollbar-thumb:hover {
+    background: theme('colors.gray.500');
+}
 
 
-    /* ============================================== */
-    /* NEW: Swiper.js Carousel Styles                 */
-    /* ============================================== */
+/* ============================================== */
+/* NEW: Swiper.js Carousel Styles                 */
+/* ============================================== */
 
-    /* We target the class we defined in our HTML */
-    .featured-gallery {
-        /* Set a max height so slides are uniform */
-        max-height: 600px;
-    }
+/* We target the class we defined in our HTML */
+.featured-gallery {
+    /* Set a max height so slides are uniform */
+    max-height: 600px;
+}
 
-    .featured-gallery .swiper-slide {
-        /* Ensure images inside are full height */
-        height: auto;
-    }
+.featured-gallery .swiper-slide {
+    /* Ensure images inside are full height */
+    height: auto;
+}
 
-    /* Style pagination dots */
-    .swiper-pagination-bullet {
-        background: theme('colors.brand-primary');
-        opacity: 0.4;
-        transition: opacity 0.3s;
-    }
+/* Style pagination dots */
+.swiper-pagination-bullet {
+    background: theme('colors.brand-primary');
+    opacity: 0.4;
+    transition: opacity 0.3s;
+}
 
-    .swiper-pagination-bullet-active {
-        opacity: 1;
-    }
+.swiper-pagination-bullet-active {
+    opacity: 1;
+}
 
-    /* Style navigation arrows */
+/* Style navigation arrows */
+.swiper-button-next,
+.swiper-button-prev {
+    color: theme('colors.brand-primary');
+    background-color: rgba(255, 252, 247, 0.8);
+    /* bg-brand-bg with opacity */
+    backdrop-filter: blur(4px);
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s;
+}
+
+.swiper-button-next:hover,
+.swiper-button-prev:hover {
+    background-color: theme('colors.brand-bg');
+    color: theme('colors.brand-primary-dark');
+}
+
+/* Make arrows smaller */
+.swiper-button-next::after,
+.swiper-button-prev::after {
+    font-size: 18px;
+    font-weight: 900;
+}
+
+/* Hide arrows on mobile by default */
+.swiper-button-next,
+.swiper-button-prev {
+    display: none;
+}
+
+/* Show arrows on larger screens */
+@media (min-width: 768px) {
+
     .swiper-button-next,
     .swiper-button-prev {
-        color: theme('colors.brand-primary');
-        background-color: rgba(255, 252, 247, 0.8);
-        /* bg-brand-bg with opacity */
-        backdrop-filter: blur(4px);
-        width: 44px;
-        height: 44px;
-        border-radius: 50%;
-        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-        transition: all 0.3s;
+        display: flex;
     }
-
-    .swiper-button-next:hover,
-    .swiper-button-prev:hover {
-        background-color: theme('colors.brand-bg');
-        color: theme('colors.brand-primary-dark');
-    }
-
-    /* Make arrows smaller */
-    .swiper-button-next::after,
-    .swiper-button-prev::after {
-        font-size: 18px;
-        font-weight: 900;
-    }
-
-    /* Hide arrows on mobile by default */
-    .swiper-button-next,
-    .swiper-button-prev {
-        display: none;
-    }
-
-    /* Show arrows on larger screens */
-    @media (min-width: 768px) {
-
-        .swiper-button-next,
-        .swiper-button-prev {
-            display: flex;
-        }
-    }
+}
