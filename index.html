@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Crafting Sign - Coming Soon</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;900&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            overflow: hidden;
+            background: #f8f9fa;
+            color: #1a1a1a;
+            height: 100vh;
+        }
+
+        .loader-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: #ffffff;
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: opacity 0.8s ease, visibility 0.8s ease;
+        }
+
+        .loader-container.hidden {
+            opacity: 0;
+            visibility: hidden;
+        }
+
+        .loader-content {
+            text-align: center;
+        }
+
+        .loader-text {
+            font-size: 4rem;
+            font-weight: 900;
+            color: #1a1a1a;
+            letter-spacing: -2px;
+            margin-bottom: 30px;
+            opacity: 0;
+            animation: fadeInUp 0.8s ease forwards;
+        }
+
+        .loader-bar-container {
+            width: 300px;
+            height: 4px;
+            background: #e9ecef;
+            border-radius: 10px;
+            overflow: hidden;
+            margin: 0 auto;
+        }
+
+        .loader-bar {
+            height: 100%;
+            background: linear-gradient(90deg, #1a1a1a, #4a4a4a);
+            width: 0%;
+            animation: loadProgress 2s ease forwards;
+        }
+
+        @keyframes loadProgress {
+            to { width: 100%; }
+        }
+
+        @keyframes fadeInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+        }
+
+        .main-container {
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 40px;
+            position: relative;
+            opacity: 0;
+            animation: fadeIn 1s ease 2s forwards;
+        }
+
+        @keyframes fadeIn {
+            to { opacity: 1; }
+        }
+
+        .brand-name {
+            font-size: 7rem;
+            font-weight: 900;
+            color: #1a1a1a;
+            letter-spacing: -4px;
+            margin-bottom: 20px;
+            position: relative;
+            line-height: 1;
+        }
+
+        .brand-name::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 0;
+            width: 100%;
+            height: 6px;
+            background: #1a1a1a;
+            transform: scaleX(0);
+            transform-origin: left;
+            animation: expandLine 1s ease 2.5s forwards;
+        }
+
+        @keyframes expandLine {
+            to { transform: scaleX(1); }
+        }
+
+        .coming-soon {
+            font-size: 1.5rem;
+            font-weight: 300;
+            color: #6c757d;
+            letter-spacing: 8px;
+            text-transform: uppercase;
+            margin-bottom: 60px;
+            opacity: 0;
+            animation: fadeInUp 0.8s ease 2.8s forwards;
+        }
+
+        .countdown-wrapper {
+            margin-bottom: 80px;
+            opacity: 0;
+            animation: fadeInUp 0.8s ease 3s forwards;
+        }
+
+        .countdown {
+            display: flex;
+            gap: 60px;
+            justify-content: center;
+        }
+
+        .countdown-block {
+            text-align: center;
+            position: relative;
+        }
+
+        .countdown-number {
+            font-size: 6rem;
+            font-weight: 900;
+            color: #1a1a1a;
+            line-height: 1;
+            letter-spacing: -3px;
+            display: block;
+            margin-bottom: 10px;
+        }
+
+        .countdown-label {
+            font-size: 0.875rem;
+            font-weight: 600;
+            color: #6c757d;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .countdown-block::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            right: -30px;
+            width: 2px;
+            height: 60px;
+            background: #dee2e6;
+            transform: translateY(-50%);
+        }
+
+        .countdown-block:last-child::before {
+            display: none;
+        }
+
+        .contact-section {
+            text-align: center;
+            opacity: 0;
+            animation: fadeInUp 0.8s ease 3.2s forwards;
+        }
+
+        .contact-title {
+            font-size: 1rem;
+            font-weight: 600;
+            color: #6c757d;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            margin-bottom: 20px;
+        }
+
+        .contact-info {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .contact-item {
+            font-size: 1.125rem;
+            font-weight: 400;
+            color: #1a1a1a;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            display: inline-block;
+        }
+
+        .contact-item:hover {
+            color: #495057;
+            transform: translateX(5px);
+        }
+
+        .background-text {
+            position: fixed;
+            font-size: 20vw;
+            font-weight: 900;
+            color: rgba(0, 0, 0, 0.02);
+            pointer-events: none;
+            user-select: none;
+            white-space: nowrap;
+            z-index: -1;
+        }
+
+        .bg-text-1 {
+            top: 10%;
+            left: -5%;
+            animation: slideRight 30s linear infinite;
+        }
+
+        .bg-text-2 {
+            bottom: 10%;
+            right: -5%;
+            animation: slideLeft 30s linear infinite;
+        }
+
+        @keyframes slideRight {
+            0% { transform: translateX(-100%); }
+            100% { transform: translateX(50%); }
+        }
+
+        @keyframes slideLeft {
+            0% { transform: translateX(50%); }
+            100% { transform: translateX(-100%); }
+        }
+
+        .decorative-circle {
+            position: fixed;
+            border: 2px solid rgba(0, 0, 0, 0.05);
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        .circle-1 {
+            width: 400px;
+            height: 400px;
+            top: -200px;
+            right: -200px;
+        }
+
+        .circle-2 {
+            width: 300px;
+            height: 300px;
+            bottom: -150px;
+            left: -150px;
+        }
+
+        @media (max-width: 768px) {
+            .brand-name {
+                font-size: 3.5rem;
+                letter-spacing: -2px;
+            }
+            .coming-soon {
+                font-size: 1rem;
+                letter-spacing: 4px;
+            }
+            .countdown {
+                gap: 30px;
+            }
+            .countdown-number {
+                font-size: 3.5rem;
+            }
+            .countdown-block::before {
+                right: -15px;
+            }
+            .loader-text {
+                font-size: 2.5rem;
+            }
+            .background-text {
+                font-size: 30vw;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .countdown {
+                gap: 20px;
+            }
+            .countdown-number {
+                font-size: 2.5rem;
+            }
+            .countdown-label {
+                font-size: 0.75rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Loader -->
+    <div class="loader-container" id="loader">
+        <div class="loader-content">
+            <div class="loader-text">Crafting Sign</div>
+            <div class="loader-bar-container">
+                <div class="loader-bar"></div>
+            </div>
+        </div>
+    </div>
+    <div class="background-text bg-text-1">CRAFTING SIGN</div>
+    <div class="background-text bg-text-2">COMING SOON</div>
+    <div class="decorative-circle circle-1"></div>
+    <div class="decorative-circle circle-2"></div>
+
+    <div class="main-container">
+        <h1 class="brand-name">Crafting Sign</h1>
+        <p class="coming-soon">Coming Soon</p>
+        
+        <div class="countdown-wrapper">
+            <div class="countdown">
+                <div class="countdown-block">
+                    <span class="countdown-number" id="days">00</span>
+                    <span class="countdown-label">Days</span>
+                </div>
+                <div class="countdown-block">
+                    <span class="countdown-number" id="hours">00</span>
+                    <span class="countdown-label">Hours</span>
+                </div>
+                <div class="countdown-block">
+                    <span class="countdown-number" id="minutes">00</span>
+                    <span class="countdown-label">Minutes</span>
+                </div>
+                <div class="countdown-block">
+                    <span class="countdown-number" id="seconds">00</span>
+                    <span class="countdown-label">Seconds</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="contact-section">
+            <div class="contact-title">Contact</div>
+            <div class="contact-info">
+                <a href="mailto:admin@craftingsign.com" class="contact-item">admin@craftingsign.com</a>
+                <a href="tel:9079199046" class="contact-item">9079199046</a>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Hide loader after 2 seconds
+        setTimeout(() => {
+            document.getElementById('loader').classList.add('hidden');
+        }, 2000);
+
+        // Countdown Timer - Set to November 1, 2025 at 12:00 AM
+        const launchDate = new Date('2025-11-01T00:00:00').getTime();
+
+        function updateCountdown() {
+            const currentTime = new Date().getTime();
+            const distance = launchDate - currentTime;
+
+            const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+            document.getElementById('days').innerText = String(days).padStart(2, '0');
+            document.getElementById('hours').innerText = String(hours).padStart(2, '0');
+            document.getElementById('minutes').innerText = String(minutes).padStart(2, '0');
+            document.getElementById('seconds').innerText = String(seconds).padStart(2, '0');
+
+            if (distance < 0) {
+                clearInterval(countdownInterval);
+                document.querySelector('.countdown-wrapper').innerHTML = 
+                    '<div class="countdown-number">We\'re Live!</div>';
+            }
+        }
+
+        const countdownInterval = setInterval(updateCountdown, 1000);
+        updateCountdown();
+
+        // Parallax effect on mouse move
+        document.addEventListener('mousemove', (e) => {
+            const moveX = (e.clientX - window.innerWidth / 2) * 0.01;
+            const moveY = (e.clientY - window.innerHeight / 2) * 0.01;
+            
+            document.querySelectorAll('.decorative-circle').forEach((circle, index) => {
+                const speed = (index + 1) * 0.5;
+                circle.style.transform = `translate(${moveX * speed}px, ${moveY * speed}px)`;
+            });
+        });
+    </script>
+</body>
+</html>
